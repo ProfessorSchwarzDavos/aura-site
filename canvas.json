@@ -1,0 +1,60 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Feed.dc.html": {
+      "expand": "fill",
+      "h": 1700,
+      "is_interactive": true,
+      "title": "Feed",
+      "w": 1440,
+      "x": 1520,
+      "y": 0
+    },
+    "Main.dc.html": {
+      "expand": "fill",
+      "h": 8000,
+      "is_interactive": true,
+      "title": "Home",
+      "w": 1440,
+      "x": 0,
+      "y": 0
+    },
+    "Pools.dc.html": {
+      "x": 3040,
+      "y": 0,
+      "w": 1440,
+      "h": 2400,
+      "title": "Meteora pools",
+      "expand": "fill",
+      "is_interactive": true
+    },
+    "App.dc.html": {
+      "x": 4560,
+      "y": 0,
+      "w": 1440,
+      "h": 2200,
+      "title": "App",
+      "expand": "fill",
+      "is_interactive": true
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-10-04T12:00:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "file": "Main.dc.html",
+    "view": "focused"
+  },
+  "notes": {},
+  "order": [
+    "Main.dc.html",
+    "Feed.dc.html",
+    "Pools.dc.html",
+    "App.dc.html"
+  ],
+  "pages": [],
+  "title": "AuraOnchain"
+}

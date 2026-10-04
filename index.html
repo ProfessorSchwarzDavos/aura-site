@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AuraOnchain — Home</title>
+<meta name="description" content="Aura is a liquidity agent on Meteora that follows your rules, previews every move and explains every decision.">
+<meta property="og:title" content="Aura · Liquidity agent on Meteora">
+<meta property="og:description" content="You set the rules. It radiates.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@Auraonchainai">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F4EF}
+@keyframes auraTwinkle{0%,100%{opacity:.25;transform:scale(.7) rotate(0deg)}50%{opacity:1;transform:scale(1.1) rotate(20deg)}}
+@keyframes auraDrift{0%,100%{translate:0 0}50%{translate:0 -14px}}
+@keyframes auraShine{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.08) rotate(12deg)}}
+@keyframes auraFloat{0%,100%{translate:0 0}25%{translate:8px -12px}50%{translate:-4px -22px}75%{translate:-10px -8px}}
+@keyframes auraGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 0 30px rgba(255,255,255,.55))}50%{filter:drop-shadow(0 0 16px #FFFFFF) drop-shadow(0 0 56px rgba(255,255,255,.85)) drop-shadow(0 0 96px rgba(190,244,250,.6))}}
+@keyframes auraSpin{to{rotate:360deg}}
+@keyframes auraPulse{0%,100%{opacity:.55;scale:1}50%{opacity:1;scale:1.06}}
+@keyframes auraPingTeal{0%{box-shadow:0 0 0 0 rgba(18,174,188,.6)}100%{box-shadow:0 0 0 8px rgba(18,174,188,0)}}
+@keyframes auraPing{0%{box-shadow:0 0 0 0 rgba(18,174,188,.6)}100%{box-shadow:0 0 0 10px rgba(18,174,188,0)}}
+@media (prefers-reduced-motion: reduce){.aura-star,.aura-star svg,.aura-logo,.aura-logo svg,.aura-motion{animation:none !important;transition:none !important}}
+@keyframes auraReveal{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@supports (animation-timeline: view()){.aura-reveal{animation:auraReveal linear both;animation-timeline:view();animation-range:entry 0% cover 25%}}
+@media (prefers-reduced-motion: reduce){.aura-reveal{animation:none !important}}
+.aura-range{width:100%;height:28px;margin:0;accent-color:#12AEBC;cursor:pointer}
+.aura-root{--bg:#F6F4EF;--band:#EFECE5;--ink:#1C1B22;--muted:#55535E;--soft:#6B6975;--accent-text:#08707C;--line-page:var(--line-page);transition:background-color .35s ease,color .35s ease}
+.aura-dark{--bg:#071E22;--band:#0B2A2F;--ink:#E9F5F6;--muted:#B4CDD0;--soft:#93B1B4;--accent-text:#6FDBE5;--line-page:#1F474C}
+.aura-card{--ink:#1C1B22;--muted:#55535E;--soft:#6B6975;--accent-text:#08707C;--line-page:var(--line-page);color:var(--ink)}
+.aura-slider{display:flex;flex-direction:column;gap:8px;min-width:0}
+.aura-slider-top{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12px;font-weight:700;white-space:nowrap;min-height:18px}
+a{color:#08707C}a:hover{color:#05505A}
+.aura-btn{transition:transform .25s ease, box-shadow .25s ease, background-color .25s ease}
+.aura-btn:hover{transform:translateY(-2px)}
+.aura-btn:focus-visible{outline:2px solid #FFFFFF;outline-offset:3px}
+.aura-btn-dark:hover{box-shadow:0 14px 30px -10px rgba(4,40,46,0.6), 0 0 0 6px rgba(255,255,255,0.18)}
+.aura-btn-glass:hover{background-color:rgba(255,255,255,0.42)}
+</style>
+<style>html{scroll-behavior:smooth}#app{min-height:100vh}</style>
+</head>
+<body>
+<div id="app"></div>
+<script type="module">
+import { html, render, h, Component as PreactComponent } from 'https://esm.sh/htm@3.1.1/preact/standalone';
+
+// Small base class: each page's logic exposes renderVals(), the template reads from it.
+class DCLogic extends PreactComponent {
+  render() { const v = this.renderVals(); return TEMPLATE(v); }
+}
+
+const TEMPLATE = (v) => html`
+
+<div class=${`aura-root ${v.themeClass}`} style="background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; font-family: 'Manrope', 'Helvetica Neue', sans-serif; min-height: 100vh; overflow: hidden">
+
+<div style=${`background: ${v.accent}; position: relative; overflow: hidden`}>
+<header style="max-width: 1240px; margin: 0 auto; padding: 24px 32px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px">
+<a href="#top" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #04282E">
+<span class="aura-logo" style="width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 0 6px rgba(255,255,255,0.95)) drop-shadow(0 0 14px rgba(255,255,255,0.6))"><svg width="38" height="38" viewBox="0 0 24 24" aria-hidden="true" style="display: block; animation: auraShine 5s ease-in-out infinite"><defs><linearGradient id="auraLogoGradHome" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" /><stop offset="0.45" stop-color="#C9F3F7" /><stop offset="1" stop-color="#7FDCE6" /></linearGradient></defs><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" fill="url(#auraLogoGradHome)" stroke="#FFFFFF" stroke-width="0.6" /><path d="M12 7.5C12.25 10.4 13.6 11.75 16.5 12C13.6 12.25 12.25 13.6 12 16.5C11.75 13.6 10.4 12.25 7.5 12C10.4 11.75 11.75 10.4 12 7.5Z" fill="#FFFFFF" /></svg></span>
+<span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 32px; line-height: 1; letter-spacing: 0.01em">Aura</span>
+</a>
+<nav aria-label="Main" style="display: flex; flex-wrap: wrap; gap: 32px; font-size: 15px; font-weight: 500">
+<a href="#product" style="color: #04282E; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Product</a>
+<a href="#how" style="color: #04282E; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">How it works</a>
+<a href="pools.html" style="color: #04282E; text-decoration: none; min-height: 44px; display: inline-flex; align-items: center">Meteora pools</a>
+</nav>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<a href="https://x.com/Auraonchainai" class="aura-btn" aria-label="Aura on X" style="width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.7); color: #04282E; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg></a>
+<button type="button" class="aura-btn" onClick=${v.toggleTheme} aria-label=${v.themeLabel} aria-pressed=${v.themePressed} style="width: 46px; height: 46px; border-radius: 50%; background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.7); color: #04282E; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none">${v.isDark ? html`<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><circle cx="12" cy="12" r="4.5" /><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" /></svg>` : null}${v.isLight ? html`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z" /></svg>` : null}</button>
+<button type="button" class="aura-btn" onClick=${v.copyContract} style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #04282E; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.7); border-radius: 999px; padding: 0 20px; min-height: 46px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer">${v.contractLabel}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg></button>
+<a href="app.html" class="aura-card aura-btn" style="font-size: 15px; font-weight: 700; text-decoration: none; color: #04282E; background: #FFFFFF; box-shadow: 0 6px 18px -8px rgba(4,40,46,0.45); padding: 0 22px; border-radius: 999px; min-height: 46px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 10px">Open app<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9" /></svg></a>
+</div>
+</header>
+
+<section id="top" onMouseMove=${v.onHeroMove} onMouseLeave=${v.onHeroLeave} style="position: relative; max-width: 1240px; margin: 0 auto; padding: 96px 32px 200px; display: flex; flex-wrap: wrap; align-items: center; gap: 48px">
+<div class="aura-motion" aria-hidden="true" style=${`position: absolute; inset: 0; pointer-events: none; z-index: 1; transform: translate(${v.fieldX}px, ${v.fieldY}px); transition: transform 0.9s cubic-bezier(.2,.7,.2,1)`}>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 8%; left: 4%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraFloat 12s ease-in-out 0s infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.2s ease-in-out 0s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 22%; left: 46%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraFloat 10s ease-in-out 1.1s infinite"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.4s ease-in-out 1.1s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 62%; left: 2%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraFloat 14s ease-in-out 0.6s infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 5s ease-in-out 0.6s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 80%; left: 38%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraFloat 11s ease-in-out 2s infinite"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.6s ease-in-out 2s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 12%; left: 92%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraFloat 13s ease-in-out 1.6s infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.8s ease-in-out 1.6s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+</div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 48%; left: 97%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraDrift 12s ease-in-out 0.3s infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 5.4s ease-in-out 0.3s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 88%; left: 70%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraDrift 9s ease-in-out 2.4s infinite"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.2s ease-in-out 2.4s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 34%; left: 28%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraDrift 7s ease-in-out 3s infinite"><svg width="6" height="6" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.4s ease-in-out 3s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="flex: 1 1 520px; min-width: 0; position: relative; z-index: 2; display: flex; flex-direction: column; gap: 28px">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #04282E">● Liquidity agent · Meteora · Solana</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(56px, 8.5vw, 120px); line-height: 0.95; letter-spacing: -0.01em; color: #04282E">You set the rules.<br /><em style="font-style: italic; color: #FFFFFF; text-shadow: 0 0 24px rgba(255,255,255,0.45)">It radiates.</em></h1>
+<p style="margin: 0; max-width: 540px; font-size: 19px; line-height: 1.6; color: #04282E">AuraOnchain is a liquidity agent that works your capital across Meteora pools inside limits you write. Nothing moves without a preview first, and nothing happens without a reason you can read.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<a href="#how" class="aura-btn aura-btn-dark" style="text-decoration: none; color: #FFFFFF; background: #04282E; font-weight: 700; font-size: 16px; padding: 8px 8px 8px 26px; border-radius: 999px; min-height: 56px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 16px; box-shadow: 0 10px 24px -12px rgba(4,40,46,0.7)">Write your rules<span class="aura-card" style="width: 40px; height: 40px; border-radius: 50%; background: #FFFFFF; color: #04282E; display: inline-flex; align-items: center; justify-content: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a>
+<a href="pools.html" class="aura-btn aura-btn-glass" style="text-decoration: none; color: #04282E; background-color: rgba(255,255,255,0.24); border: 1px solid rgba(255,255,255,0.75); font-weight: 700; font-size: 16px; padding: 0 26px; border-radius: 999px; min-height: 56px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 10px; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true" style="filter: drop-shadow(0 0 4px rgba(255,255,255,0.9))"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg>Browse Meteora pools</a>
+</div>
+</div>
+<div style="flex: 1 1 380px; min-width: 0; display: flex; justify-content: center; align-items: center; position: relative; height: 480px">
+<div style="position: absolute; width: 460px; height: 460px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.35)"></div>
+<div style="position: absolute; width: 360px; height: 360px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.55); animation: auraSpin 70s linear infinite" class="aura-motion"></div>
+<div class="aura-motion" style=${`position: absolute; width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,0.16); box-shadow: 0 0 120px 40px rgba(255,255,255,0.28); animation: auraPulse 5s ease-in-out infinite; transform: translate(${v.haloX}px, ${v.haloY}px); transition: transform 1.1s cubic-bezier(.2,.7,.2,1)`}></div>
+<div class="aura-motion" aria-hidden="true" style="position: absolute; width: 330px; height: 330px; animation: auraSpin 28s linear infinite; pointer-events: none"><span style="position: absolute; top: -6px; left: 50%; color: #FFFFFF; filter: drop-shadow(0 0 6px #FFFFFF)"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span><span style="position: absolute; bottom: 20%; left: 2%; color: #FFFFFF; filter: drop-shadow(0 0 6px #FFFFFF)"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span></div>
+<div class="aura-motion" style=${`position: relative; transform: translate(${v.starX}px, ${v.starY}px) rotate(${v.starR}deg); transition: transform 0.7s cubic-bezier(.2,.7,.2,1)`}><div class="aura-logo" aria-hidden="true" style="position: relative; width: 220px; height: 220px; animation: auraGlow 4.5s ease-in-out infinite"><svg width="220" height="220" viewBox="0 0 24 24" style="display: block; animation: auraShine 6s ease-in-out infinite"><defs><linearGradient id="auraHeroGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" /><stop offset="0.5" stop-color="#E4FAFC" /><stop offset="1" stop-color="#A6E9F0" /></linearGradient></defs><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" fill="url(#auraHeroGrad)" stroke="#FFFFFF" stroke-width="0.25" /><path d="M12 7.5C12.25 10.4 13.6 11.75 16.5 12C13.6 12.25 12.25 13.6 12 16.5C11.75 13.6 10.4 12.25 7.5 12C10.4 11.75 11.75 10.4 12 7.5Z" fill="#FFFFFF" /></svg></div></div>
+</div>
+</section>
+</div>
+
+<div style="max-width: 1240px; margin: -130px auto 0; padding: 0 32px; position: relative; z-index: 3">
+<div style="background: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.8); border-radius: 32px; padding: 10px; box-shadow: 0 50px 90px -50px rgba(4,40,46,0.55); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px)">
+<div class="aura-card" style="background: #FFFFFF; border-radius: 24px; overflow: hidden">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 14px 22px; border-bottom: 1px solid #E3EEF0; font-size: 13px; color: var(--muted)">
+<div style="display: flex; gap: 7px"><span style="width: 10px; height: 10px; border-radius: 50%; background: #12AEBC"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #7FDCE6"></span><span style="width: 10px; height: 10px; border-radius: 50%; background: #CDEBEF"></span></div>
+<span>app.aura / steady-sol</span>
+<span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPing 1.8s ease-out infinite"></span>LIVE</span>
+</div>
+<div style="display: flex; flex-wrap: wrap">
+<div style=${`flex: 1 1 400px; min-width: 0; position: relative; overflow: hidden; background: ${v.accent}; color: #04282E; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 40px; min-height: 380px`}>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 18%; left: 78%; color: #FFFFFF; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); animation: auraFloat 11s ease-in-out infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.8s ease-in-out infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 70%; left: 88%; color: #FFFFFF; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); animation: auraFloat 9s ease-in-out 1s infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.6s ease-in-out 1s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 40%; left: 60%; color: #FFFFFF; filter: drop-shadow(0 0 6px rgba(255,255,255,0.9)); animation: auraFloat 13s ease-in-out 2s infinite"><svg width="7" height="7" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.2s ease-in-out 2s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="display: flex; align-items: center; gap: 12px; position: relative"><span style="filter: drop-shadow(0 0 6px rgba(255,255,255,0.95)) drop-shadow(0 0 14px rgba(255,255,255,0.6))"><svg width="30" height="30" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 28px">Aura</span></div>
+<div style="position: relative; flex: 1; display: flex; align-items: center; justify-content: center; min-height: 220px">
+<div class="aura-motion" style="position: absolute; width: 230px; height: 230px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.55); animation: auraSpin 60s linear infinite"></div>
+<div class="aura-motion" style="position: absolute; width: 170px; height: 170px; border-radius: 50%; background: rgba(255,255,255,0.16); box-shadow: 0 0 90px 30px rgba(255,255,255,0.25); animation: auraPulse 5s ease-in-out infinite"></div>
+<div class="aura-logo" aria-hidden="true" style="position: relative; width: 150px; height: 150px; animation: auraGlow 4.5s ease-in-out infinite"><svg width="150" height="150" viewBox="0 0 24 24" style="display: block; animation: auraShine 6s ease-in-out infinite"><defs><linearGradient id="auraWindowGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF" /><stop offset="0.5" stop-color="#E4FAFC" /><stop offset="1" stop-color="#A6E9F0" /></linearGradient></defs><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" fill="url(#auraWindowGrad)" stroke="#FFFFFF" stroke-width="0.25" /><path d="M12 7.5C12.25 10.4 13.6 11.75 16.5 12C13.6 12.25 12.25 13.6 12 16.5C11.75 13.6 10.4 12.25 7.5 12C10.4 11.75 11.75 10.4 12 7.5Z" fill="#FFFFFF" /></svg></div>
+</div>
+<div style="position: relative; display: flex; flex-direction: column; gap: 14px">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(40px, 4.5vw, 56px); line-height: 1">Working quietly.<br /><em style="font-style: italic; color: #FFFFFF; text-shadow: 0 0 22px rgba(255,255,255,0.45)">Watching closely.</em></div>
+</div>
+</div>
+<div style="flex: 1 1 460px; min-width: 0; padding: 40px; display: flex; flex-direction: column; gap: 24px">
+<div style="display: flex; flex-direction: column; gap: 8px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">Today · Activity</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 36px; line-height: 1.05">What Aura did, and why.</div>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E3EEF0; align-items: flex-start">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); padding-top: 3px; min-width: 42px">10:42</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 15px">Re-centered the range</strong><span style="font-size: 14px; color: var(--muted)">Price reached the edge of your range.</span></div>
+<span class="aura-card" style="flex: 0 0 auto; font-size: 12px; font-weight: 700; background: #E3F6F8; color: var(--accent-text); padding: 6px 12px; border-radius: 999px">Approved</span>
+</div>
+<div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E3EEF0; align-items: flex-start">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); padding-top: 3px; min-width: 42px">09:15</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 15px">Held a larger deposit</strong><span style="font-size: 14px; color: var(--muted)">It was bigger than your largest-move cap.</span></div>
+<span style="flex: 0 0 auto; font-size: 12px; font-weight: 700; background: #FBE9E4; color: #8A2A16; padding: 6px 12px; border-radius: 999px">Held</span>
+</div>
+<div style="display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E3EEF0; align-items: flex-start">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); padding-top: 3px; min-width: 42px">08:00</span>
+<div style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px"><strong style="font-size: 15px">Morning check</strong><span style="font-size: 14px; color: var(--muted)">All positions inside your rules. Nothing to change.</span></div>
+<span class="aura-card" style="flex: 0 0 auto; font-size: 12px; font-weight: 700; background: #F1EFEA; color: var(--muted); padding: 6px 12px; border-radius: 999px">No action</span>
+</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 22px 0 18px; border-bottom: 1px solid #E3EEF0">
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--soft)">ALLOWED PAIR</span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1">SOL / USDC</span></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--soft)">BUDGET</span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1">$8,888</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 6px">
+<div style="display: flex; align-items: flex-end; gap: 4px; height: 76px" aria-label="Liquidity spread across the price range, concentrated around the current price" role="img">
+<span style="flex: 1; height: 10px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 11px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 12px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 13px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 16px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 20px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 26px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 35px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style=${`flex: 1; height: 44px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 54px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 63px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 70px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 72px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 70px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 63px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 54px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style=${`flex: 1; height: 44px; border-radius: 4px 4px 2px 2px; background: ${v.accent}`}></span><span style="flex: 1; height: 35px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 26px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 20px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 16px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 13px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 12px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 11px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span><span style="flex: 1; height: 10px; border-radius: 4px 4px 2px 2px; background: #D3EDF0"></span>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--soft); border-top: 1px solid #E3EEF0; padding-top: 8px"><span>−10%</span><span style="color: var(--accent-text)">● your active range</span><span>+10%</span></div>
+</div>
+<div style="display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+<div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#08707C" stroke-width="2.6" aria-hidden="true"><path d="M5 12l5 5L19 7" /></svg><span>Within your Aura</span><span style="margin-left: auto; font-size: 13px; color: var(--muted)">Goes to you for sign-off</span></div>
+<div style="display: flex; align-items: center; gap: 10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8A2A16" stroke-width="2.6" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg><span>Past a limit</span><span style="margin-left: auto; font-size: 13px; color: var(--muted)">Stopped, with the reason</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="border-bottom: 1px solid var(--line-page); padding: 18px 32px; margin-top: 64px; display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-style: italic; font-size: 24px; color: var(--soft)">
+<span>Set the rules</span><span style="color: var(--accent-text)">✦</span><span>Preview the move</span><span style="color: var(--accent-text)">✦</span><span>Read the why</span>
+</div>
+
+<section id="product" class="aura-reveal" style="max-width: 1240px; margin: 0 auto; padding: 120px 32px; display: flex; flex-wrap: wrap; gap: 64px">
+<div style="flex: 1 1 360px; min-width: 0; font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">01 / Why Aura</div>
+<div style="flex: 2 1 560px; min-width: 0; display: flex; flex-direction: column; gap: 28px">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(38px, 5vw, 60px); line-height: 1.15">Most bots ask for blind trust. Yours shows its work.</h2>
+<p style="margin: 0; font-size: 18px; line-height: 1.7; color: var(--muted)">AuraOnchain manages your liquidity on Meteora within guardrails you define: which pools, how much capital, when to rebalance, and when to step back. Every action is simulated before it executes and saved with the reasoning behind it, so you're never guessing what happened to your funds.</p>
+</div>
+</section>
+
+<section id="how" class="aura-reveal" style="max-width: 1240px; margin: 0 auto; padding: 60px 32px 140px; display: flex; flex-direction: column; gap: 72px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">02 / How it works</div>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(44px, 6.5vw, 88px); line-height: 1">See it <em style="font-style: italic; color: var(--accent-text)">before</em> it happens.</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">01 — Your rule set</div>
+<h3 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(44px, 5.5vw, 72px); line-height: 1">Draw the<br /><em style="font-style: italic">boundaries.</em></h3>
+<p style="margin: 0; max-width: 460px; font-size: 18px; line-height: 1.7; color: var(--muted)">Tell Aura where it may work and how far it may go: the pools you're comfortable with, the most it can deploy, the biggest single move it can make, and whether it waits for your sign-off. Write it in plain words and change it whenever you like.</p>
+<div><a href="#join" class="aura-card aura-btn" style="text-decoration: none; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; font-weight: 700; font-size: 16px; padding: 6px 6px 6px 24px; border-radius: 999px; min-height: 54px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 8px 22px -14px rgba(4,40,46,0.5)">Start a rule set<span style=${`width: 40px; height: 40px; border-radius: 50%; background: ${v.accent}; color: #04282E; display: inline-flex; align-items: center; justify-content: center`}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a></div>
+</div>
+<div class="aura-card" style="flex: 1 1 440px; min-width: 0; position: relative; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 28px; box-shadow: 0 30px 60px -40px rgba(4,40,46,0.45)">
+<div class="aura-star" aria-hidden="true" style=${`position: absolute; top: 28px; right: 32px; color: #FFFFFF; filter: drop-shadow(0 0 4px ${v.accent}) drop-shadow(0 0 10px rgba(18,174,188,0.6))`}><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4s ease-in-out infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">Example · Rule set 01</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 44px; line-height: 1">Steady SOL</div>
+</div>
+<div class="aura-card" style="display: flex; flex-direction: column; background: #FFFFFF; border-radius: 18px; padding: 6px 22px">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E3EEF0; font-size: 15px"><span style="color: var(--muted)">Pool</span><strong>SOL – USDC</strong></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E3EEF0; font-size: 15px"><span style="color: var(--muted)">Total budget</span><strong>$888</strong></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; border-bottom: 1px solid #E3EEF0; font-size: 15px"><span style="color: var(--muted)">Largest single move</span><strong>$88</strong></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 16px 0; font-size: 15px"><span style="color: var(--muted)">Sign-off</span><strong>Ask me first</strong></div>
+</div>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 14px; color: #04282E"><span style=${`width: 28px; height: 28px; border-radius: 50%; background: ${v.accent}; display: inline-flex; align-items: center; justify-content: center`}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="2.6" aria-hidden="true"><path d="M5 12l5 5L19 7" /></svg></span>Every proposed move is checked against this set.</div>
+</div>
+</div>
+</section>
+<section id="preview" class="aura-reveal" style="max-width: 1240px; margin: 0 auto; padding: 0 32px 140px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+<div class="aura-card" style="flex: 1 1 440px; min-width: 0; position: relative; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 24px; box-shadow: 0 30px 60px -40px rgba(4,40,46,0.45)">
+<div class="aura-star" aria-hidden="true" style=${`position: absolute; top: 28px; right: 32px; color: #FFFFFF; filter: drop-shadow(0 0 4px ${v.accent}) drop-shadow(0 0 10px rgba(18,174,188,0.6))`}><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4s ease-in-out infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">Preview · Steady SOL</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1">A proposed move</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px" role="group" aria-label="Example moves">
+${(v.moveTabs || []).map((t, $index) => html`
+<button type="button" class="aura-btn" onClick=${t.pick} aria-pressed=${t.pressed} style=${`font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: ${t.bg}; border: 1px solid #BFE3E8; border-radius: 999px; padding: 0 18px; min-height: 44px; cursor: pointer`}>${t.label}</button>
+`)}
+</div>
+<div class="aura-card" style="background: #FFFFFF; border-radius: 18px; padding: 22px 22px 18px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; color: var(--soft)"><span>PRICE RANGE · SOL / USDC</span><span>ILLUSTRATIVE</span></div>
+<div style="position: relative; height: 64px">
+<div class="aura-row-line" style="position: absolute; left: 0; right: 0; top: 31px; height: 2px; background: #E3EEF0"></div>
+<div style=${`position: absolute; top: 14px; height: 36px; left: ${v.mv.left}%; width: ${v.mv.width}%; background: ${v.mv.fill}; border: 1.5px solid ${v.mv.edge}; border-radius: 12px; box-sizing: border-box; transition: left .25s ease, width .25s ease, background-color .25s ease; box-shadow: 0 8px 20px -12px ${v.mv.edge}`}></div>
+<div style="position: absolute; top: 4px; bottom: 4px; left: 50%; width: 2px; margin-left: -1px; background: #04282E"></div>
+<div style=${`position: absolute; top: -2px; left: 50%; transform: translateX(-50%); color: ${v.accent}; filter: drop-shadow(0 0 4px rgba(18,174,188,0.7))`}><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: var(--soft)"><span>−20%</span><span style="color: var(--accent-text)">NOW</span><span>+20%</span></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; border-top: 1px solid #E3EEF0; padding-top: 14px">
+<label class="aura-slider"><span class="aura-slider-top" style="color: var(--muted)"><span>Slide range</span><span style="color: #04282E">${v.mv.shiftLabel}</span></span><input class="aura-range" type="range" min="-20" max="20" step="1" value=${v.mv.shift} onInput=${v.onShift} /></label>
+<label class="aura-slider"><span class="aura-slider-top" style="color: var(--muted)"><span>Width</span><span style="color: #04282E">±${v.mv.half}%</span></span><input class="aura-range" type="range" min="2" max="20" step="1" value=${v.mv.half} onInput=${v.onWidth} /></label>
+<label class="aura-slider"><span class="aura-slider-top" style="color: var(--muted)"><span>Size</span><span style="color: #04282E">${v.mv.sizeLabel}</span></span><input class="aura-range" type="range" min="100" max="2000" step="50" value=${v.mv.size} onInput=${v.onSize} /></label>
+</div>
+</div>
+<div class="aura-card" style="display: flex; flex-direction: column; background: #FFFFFF; border-radius: 18px; padding: 4px 22px">
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 0; font-size: 15px; border-bottom: 1px solid #E3EEF0"><span style="color: var(--muted)">Action</span><strong>${v.mv.action}</strong></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 0; font-size: 15px; border-bottom: 1px solid #E3EEF0"><span style="color: var(--muted)">Size</span><strong>${v.mv.sizeLabel}</strong></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 0; font-size: 15px; border-bottom: 1px solid #E3EEF0"><span style="color: var(--muted)">Range</span><strong>${v.mv.rangeLabel}</strong></div>
+<div style="display: flex; justify-content: space-between; gap: 16px; padding: 15px 0; font-size: 15px"><span style="color: var(--muted)">Earning fees now</span><strong>${v.mv.earning}</strong></div>
+</div>
+<div style=${`display: flex; align-items: center; gap: 12px; padding: 14px 18px; border-radius: 14px; background: ${v.mv.verdictBg}; color: ${v.mv.verdictFg}; font-size: 15px; font-weight: 700; transition: background-color .25s ease`}>
+<span style=${`flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: ${v.mv.iconBg}; display: inline-flex; align-items: center; justify-content: center`}>${v.mv.ok ? html`<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="2.8" aria-hidden="true"><path d="M5 12l5 5L19 7" /></svg>` : null}${v.mv.notOk ? html`<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.8" aria-hidden="true"><path d="M12 7v6M12 17h.01" /></svg>` : null}</span>
+<span>${v.mv.verdict}</span>
+</div>
+</div>
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">02 — The preview</div>
+<h3 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(44px, 5.5vw, 72px); line-height: 1">Look before<br /><em style="font-style: italic">it leaps.</em></h3>
+<p style="margin: 0; max-width: 460px; font-size: 18px; line-height: 1.7; color: var(--muted)">Every time Aura wants to act, it shows you the move first: the range it would set, the size, and what it expects to earn. Anything that crosses one of your limits is stopped right there, with the limit it hit spelled out.</p>
+<div><a href="#preview" class="aura-card aura-btn" style="text-decoration: none; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; font-weight: 700; font-size: 16px; padding: 6px 6px 6px 24px; border-radius: 999px; min-height: 54px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 8px 22px -14px rgba(4,40,46,0.5)">Try the preview<span style=${`width: 40px; height: 40px; border-radius: 50%; background: ${v.accent}; color: #04282E; display: inline-flex; align-items: center; justify-content: center`}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a></div>
+</div>
+</div>
+</section>
+
+<section id="reasoning" class="aura-reveal" style="max-width: 1240px; margin: 0 auto; padding: 0 32px 140px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 64px">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">03 — The reasoning</div>
+<h3 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(44px, 5.5vw, 72px); line-height: 1">Every move,<br /><em style="font-style: italic">explained.</em></h3>
+<p style="margin: 0; max-width: 460px; font-size: 18px; line-height: 1.7; color: var(--muted)">Aura keeps a plain-English trail for each decision: what it noticed, which of your rules it checked, and why it chose to act or to wait. Scroll back through it anytime, so nothing your capital did is ever a mystery.</p>
+<div><a href="#reasoning" class="aura-card aura-btn" style="text-decoration: none; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; font-weight: 700; font-size: 16px; padding: 6px 6px 6px 24px; border-radius: 999px; min-height: 54px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 14px; box-shadow: 0 8px 22px -14px rgba(4,40,46,0.5)">See a reason trail<span style=${`width: 40px; height: 40px; border-radius: 50%; background: ${v.accent}; color: #04282E; display: inline-flex; align-items: center; justify-content: center`}><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span></a></div>
+</div>
+<div class="aura-card" style="flex: 1 1 440px; min-width: 0; position: relative; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 28px; padding: 40px; display: flex; flex-direction: column; gap: 24px; box-shadow: 0 30px 60px -40px rgba(4,40,46,0.45)">
+<div class="aura-star" aria-hidden="true" style=${`position: absolute; top: 28px; right: 32px; color: #FFFFFF; filter: drop-shadow(0 0 4px ${v.accent}) drop-shadow(0 0 10px rgba(18,174,188,0.6))`}><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4s ease-in-out infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">Reason trail · [TIME]</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1">Why Aura re-centered</div>
+</div>
+<div class="aura-card" style="background: #FFFFFF; border-radius: 18px; padding: 22px; font-size: 16px; line-height: 1.65; color: var(--ink)">SOL drifted to the edge of your range, so the position had nearly stopped earning. Moving the range back around the current price keeps it working, and the move stays well inside your limits.</div>
+<div style="display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style=${`flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: ${v.accent}; display: inline-flex; align-items: center; justify-content: center`}><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="2.8" aria-hidden="true"><path d="M5 12l5 5L19 7" /></svg></span><span>Pool is on your list</span><span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft)">SOL – USDC</span></div>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style=${`flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: ${v.accent}; display: inline-flex; align-items: center; justify-content: center`}><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="2.8" aria-hidden="true"><path d="M5 12l5 5L19 7" /></svg></span><span>Under your largest-move cap</span><span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft)">[$] of [$]</span></div>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style=${`flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: ${v.accent}; display: inline-flex; align-items: center; justify-content: center`}><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="2.8" aria-hidden="true"><path d="M5 12l5 5L19 7" /></svg></span><span>Within total budget</span><span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft)">[$] left</span></div>
+<div style="display: flex; align-items: center; gap: 12px; font-size: 15px"><span style="flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%; background: #04282E; display: inline-flex; align-items: center; justify-content: center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.4" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></span><span>Sent to you for sign-off</span><span style="margin-left: auto; font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft)">Ask me first</span></div>
+</div>
+</div>
+</div>
+</section>
+
+<section id="pools" style=${`background: ${v.accent}; position: relative; overflow: hidden`}>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 14%; left: 5%; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraDrift 10s ease-in-out infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.4s ease-in-out infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 76%; left: 93%; color: #FFFFFF; filter: drop-shadow(0 0 4px rgba(255,255,255,0.95)) drop-shadow(0 0 10px rgba(255,255,255,0.7)); animation: auraDrift 8s ease-in-out 1s infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.6s ease-in-out 1s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="max-width: 1240px; margin: 0 auto; padding: 120px 32px; display: flex; flex-wrap: wrap; gap: 64px; align-items: center; color: #04282E">
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 22px">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: #04282E">03 / Meteora pools</div>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(44px, 6vw, 80px); line-height: 1">Where Aura<br /><em style="font-style: italic; color: #FFFFFF; text-shadow: 0 0 24px rgba(255,255,255,0.45)">does its work.</em></h2>
+<p style="margin: 0; max-width: 440px; font-size: 18px; line-height: 1.7">Aura provides liquidity on Meteora, Solana's liquidity layer. Start with the pools below; you choose which ones it may touch.</p>
+<div><a href="pools.html" class="aura-btn aura-btn-glass" style="text-decoration: none; color: #04282E; background-color: rgba(255,255,255,0.24); border: 1px solid rgba(255,255,255,0.75); font-weight: 700; font-size: 16px; padding: 0 26px; border-radius: 999px; min-height: 54px; box-sizing: border-box; display: inline-flex; align-items: center; gap: 10px">Browse all pools<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9" /></svg></a></div>
+</div>
+<div class="aura-card" style="flex: 1 1 520px; min-width: 0; background: #FFFFFF; color: var(--ink); border-radius: 28px; padding: 14px 30px 18px; box-shadow: 0 40px 70px -36px rgba(4,40,46,0.55); overflow-x: auto; position: relative">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 0 16px; border-bottom: 1px solid #E3EEF0">
+<div style="display: flex; align-items: center; gap: 10px"><span style=${`color: ${v.accent}; filter: drop-shadow(0 0 5px rgba(18,174,188,0.6))`}><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 24px">Aura pools</span></div>
+<span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--soft)">6 LIVE · SOLANA</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 14px 0 6px; font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--soft)"><span>PAIR</span><span>POOL TYPE</span><span>STATUS</span></div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E3EEF0;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0"><span style="position: relative; width: 54px; height: 34px; flex: 0 0 auto"><span style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #04282E; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; border: 2px solid #FFFFFF; box-sizing: border-box; z-index: 2">SOL</span><span style="position: absolute; left: 20px; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #2775CA; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; border: 2px solid #FFFFFF; box-sizing: border-box">$</span></span><strong style="font-size: 16px; white-space: nowrap">SOL / USDC</strong></div>
+<span class="aura-card" style="justify-self: start; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent-text); background: #E3F6F8; padding: 6px 10px; border-radius: 8px">Meteora DLMM</span>
+<span style="justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPingTeal 1.8s ease-out 0.0s infinite"></span>Live</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E3EEF0;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0"><span style="position: relative; width: 54px; height: 34px; flex: 0 0 auto"><span style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #E8913A; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; border: 2px solid #FFFFFF; box-sizing: border-box; z-index: 2">BTC</span><span style="position: absolute; left: 20px; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #2775CA; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; border: 2px solid #FFFFFF; box-sizing: border-box">$</span></span><strong style="font-size: 16px; white-space: nowrap">BTC / USDC</strong></div>
+<span class="aura-card" style="justify-self: start; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent-text); background: #E3F6F8; padding: 6px 10px; border-radius: 8px">Meteora DLMM</span>
+<span style="justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPingTeal 1.8s ease-out 0.3s infinite"></span>Live</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E3EEF0;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0"><span style="position: relative; width: 54px; height: 34px; flex: 0 0 auto"><span style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #5B6BB0; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; border: 2px solid #FFFFFF; box-sizing: border-box; z-index: 2">ETH</span><span style="position: absolute; left: 20px; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #2775CA; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; border: 2px solid #FFFFFF; box-sizing: border-box">$</span></span><strong style="font-size: 16px; white-space: nowrap">ETH / USDC</strong></div>
+<span class="aura-card" style="justify-self: start; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent-text); background: #E3F6F8; padding: 6px 10px; border-radius: 8px">Meteora DLMM</span>
+<span style="justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPingTeal 1.8s ease-out 0.6s infinite"></span>Live</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E3EEF0;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0"><span style="position: relative; width: 54px; height: 34px; flex: 0 0 auto"><span style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #E5B33A; color: #04282E; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; border: 2px solid #FFFFFF; box-sizing: border-box; z-index: 2">ZEC</span><span style="position: absolute; left: 20px; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #2775CA; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; border: 2px solid #FFFFFF; box-sizing: border-box">$</span></span><strong style="font-size: 16px; white-space: nowrap">ZEC / USDC</strong></div>
+<span class="aura-card" style="justify-self: start; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent-text); background: #E3F6F8; padding: 6px 10px; border-radius: 8px">Meteora DLMM</span>
+<span style="justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPingTeal 1.8s ease-out 0.9s infinite"></span>Live</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid #E3EEF0;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0"><span style="position: relative; width: 54px; height: 34px; flex: 0 0 auto"><span style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #1C1B22; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 9px; font-weight: 700; letter-spacing: 0.02em; border: 2px solid #FFFFFF; box-sizing: border-box; z-index: 2">NEAR</span><span style="position: absolute; left: 20px; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #2775CA; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; border: 2px solid #FFFFFF; box-sizing: border-box">$</span></span><strong style="font-size: 16px; white-space: nowrap">NEAR / USDC</strong></div>
+<span class="aura-card" style="justify-self: start; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent-text); background: #E3F6F8; padding: 6px 10px; border-radius: 8px">Meteora DLMM</span>
+<span style="justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPingTeal 1.8s ease-out 1.2s infinite"></span>Live</span>
+</div>
+<div style="display: grid; grid-template-columns: minmax(150px, 1.3fr) minmax(110px, 1fr) minmax(90px, 0.8fr); gap: 16px; align-items: center; padding: 16px 0;">
+<div style="display: flex; align-items: center; gap: 12px; min-width: 0"><span style="position: relative; width: 54px; height: 34px; flex: 0 0 auto"><span style="position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #7A4E8C; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.02em; border: 2px solid #FFFFFF; box-sizing: border-box; z-index: 2">VVV</span><span style="position: absolute; left: 20px; top: 0; width: 34px; height: 34px; border-radius: 50%; background-color: #2775CA; color: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; border: 2px solid #FFFFFF; box-sizing: border-box">$</span></span><strong style="font-size: 16px; white-space: nowrap">VVV / USDC</strong></div>
+<span class="aura-card" style="justify-self: start; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; color: var(--accent-text); background: #E3F6F8; padding: 6px 10px; border-radius: 8px">Meteora DLMM</span>
+<span style="justify-self: start; display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--accent-text)"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #12AEBC; animation: auraPingTeal 1.8s ease-out 1.5s infinite"></span>Live</span>
+</div>
+</div>
+</div>
+</section>
+
+<section id="safety" class="aura-reveal" style="max-width: 1240px; margin: 0 auto; padding: 140px 32px 60px; display: flex; flex-direction: column; gap: 56px">
+<div style="display: flex; flex-direction: column; align-items: center; gap: 18px; text-align: center">
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">04 / Safety</div>
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(44px, 6.5vw, 88px); line-height: 1">Guardrails, <em style="font-style: italic; color: var(--accent-text)">built in.</em></h2>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px">
+<div class="aura-card" style="background: #FFFFFF; border: 1px solid var(--line-page); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<span class="aura-card" style=${`width: 48px; height: 48px; border-radius: 14px; background: #E3F6F8; display: inline-flex; align-items: center; justify-content: center; color: ${v.accent}`}><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span>
+<h3 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1.1">Your funds stay yours</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--muted)">Your funds stay in your own wallet. Aura proposes moves; every deposit or withdrawal is a transaction you review and sign yourself.</p>
+</div>
+<div class="aura-card" style="background: #FFFFFF; border: 1px solid var(--line-page); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<span class="aura-card" style=${`width: 48px; height: 48px; border-radius: 14px; background: #E3F6F8; display: inline-flex; align-items: center; justify-content: center; color: ${v.accent}`}><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span>
+<h3 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1.1">Hard limits, not hints</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--muted)">Your budget and largest-move cap are enforced before a move is even proposed. There's no setting that lets the agent exceed them.</p>
+</div>
+<div class="aura-card" style="background: #FFFFFF; border: 1px solid var(--line-page); border-radius: 24px; padding: 32px; display: flex; flex-direction: column; gap: 16px">
+<span class="aura-card" style=${`width: 48px; height: 48px; border-radius: 14px; background: #E3F6F8; display: inline-flex; align-items: center; justify-content: center; color: ${v.accent}`}><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span>
+<h3 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1.1">Pause anytime</h3>
+<p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--muted)">One switch stops all new moves instantly. Existing positions stay put until you decide what to do with them.</p>
+</div>
+</div>
+</section>
+
+<section id="roadmap" class="aura-reveal" style="position: relative; overflow: hidden; background: var(--band); border-top: 1px solid var(--line-page); border-bottom: 1px solid var(--line-page)">
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 18%; left: 6%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px #12AEBC) drop-shadow(0 0 10px rgba(18,174,188,0.6)); animation: auraDrift 10s ease-in-out 0.4s infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.8s ease-in-out 0.4s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 70%; left: 94%; z-index: 1; pointer-events: none; color: #FFFFFF; filter: drop-shadow(0 0 4px #12AEBC) drop-shadow(0 0 10px rgba(18,174,188,0.6)); animation: auraDrift 9s ease-in-out 1.8s infinite"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4s ease-in-out 1.8s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></div>
+<div style="max-width: 1240px; margin: 0 auto; padding: 120px 32px; display: flex; flex-direction: column; gap: 48px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(38px, 5vw, 60px)">Roadmap</h2>
+<div style="font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-text)">05 / Roadmap</div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 2px solid var(--line-page)">
+<div style=${`padding: 28px 24px 8px 0; display: flex; flex-direction: column; gap: 12px; border-top: 2px solid ${v.accent}; margin-top: -2px`}>
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--accent-text); letter-spacing: 0.1em">PHASE I · NOW</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 700">Ignition</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Rule builder and move previews on Meteora pools.</p>
+</div>
+<div style="padding: 28px 24px 8px 0; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">PHASE II · [DATE]</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 700">Glow</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Live execution with full reasoning logs.</p>
+</div>
+<div style="padding: 28px 24px 8px 0; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">PHASE III · [DATE]</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 700">Resonance</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Orca Whirlpools integration, plus more pool types, strategy templates and alerts.</p>
+</div>
+<div style="padding: 28px 24px 8px 0; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">PHASE IV · [DATE]</div>
+<h3 style="margin: 0; font-size: 20px; font-weight: 700">Ascension</h3>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--muted)">Community governance and the next chapter.</p>
+</div>
+</div>
+</div>
+</section>
+
+<section id="details" class="aura-reveal" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px 60px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px">
+<div style="border: 1px solid var(--line-page); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">PROTOCOL</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 36px">Meteora</div>
+</div>
+<div style="border: 1px solid var(--line-page); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">CHAIN</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 36px">Solana</div>
+</div>
+<div style="border: 1px solid var(--line-page); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">AGENT FEE</div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 36px">0.88%</div>
+</div>
+<div style="border: 1px solid var(--line-page); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 10px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; color: var(--soft); letter-spacing: 0.1em">CONTRACT</div>
+<div style="font-family: 'Space Mono', monospace; font-size: 14px; line-height: 1.5; word-break: break-all; color: var(--accent-text); user-select: all">AuraL54hWmsKiEY31Sy6hPDYhegdzA3vCKh2uTwCpLZG</div>
+<button type="button" class="aura-btn" onClick=${v.copyContract} style=${`align-self: flex-start; font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700; color: #04282E; background: ${v.accent}; border: none; border-radius: 999px; padding: 0 16px; min-height: 40px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer`}><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15V5a2 2 0 0 1 2-2h10" /></svg>${v.copyCaLabel}</button>
+</div>
+</section>
+
+<section id="faq" class="aura-reveal" style="max-width: 900px; margin: 0 auto; padding: 40px 32px 120px; display: flex; flex-direction: column; gap: 32px">
+<h2 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(38px, 5vw, 60px)">FAQ</h2>
+<div style="display: flex; flex-direction: column; border-top: 1px solid var(--line-page)">
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">What does the agent actually do?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">It opens, adjusts and closes liquidity positions on Meteora according to the rules you set, and nothing outside them.</p>
+</details>
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">Who holds my funds?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">Your funds stay in your own wallet. Aura proposes moves; every deposit or withdrawal is a transaction you review and sign yourself. You see a preview before every transaction.</p>
+</details>
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">When does it launch?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">Aura is rolling out in phases. Follow us on X for launch news and announcements.</p>
+</details>
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">Can I change my rules later?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">Yes. Edit or pause your rules anytime, and the agent always follows the latest saved version.</p>
+</details>
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">Does Aura ever act without asking?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">Only if you allow it. With sign-off set to “Ask me first,” every move waits for your approval.</p>
+</details>
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">What happens when I pause?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">No new moves are proposed or made. Your current positions stay exactly where they are until you act.</p>
+</details>
+<details style="border-bottom: 1px solid var(--line-page); padding: 24px 0">
+<summary style="cursor: pointer; font-size: 19px; font-weight: 700; min-height: 44px; display: flex; align-items: center">What does it cost?</summary>
+<p style="margin: 12px 0 0; font-size: 16px; line-height: 1.7; color: var(--muted)">Aura charges a 0.88% agent fee. Meteora's own pool fees and Solana network fees apply as usual.</p>
+</details>
+</div>
+</section>
+
+<section id="join" class="aura-reveal" style="max-width: 1240px; margin: 0 auto 80px; padding: 0 32px">
+<div style=${`background: ${v.accent}; color: #062A29; border-radius: 28px; padding: 72px 48px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px`}>
+<h2 style="margin: 0; flex: 1 1 480px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(42px, 6vw, 76px); line-height: 1">Your rules.<br /><em style="font-style: italic">Your aura.</em></h2>
+<div style="display: flex; flex-wrap: wrap; gap: 14px">
+<a href="https://x.com/Auraonchainai" style="text-decoration: none; color: #9FE7E3; background: #062A29; font-weight: 700; font-size: 16px; padding: 16px 28px; border-radius: 999px; min-height: 52px; box-sizing: border-box; display: inline-flex; align-items: center">Follow on X</a>
+
+</div>
+</div>
+</section>
+
+<footer style=${`background: ${v.accent}; color: #04282E`}>
+<div style="max-width: 1240px; margin: 0 auto; padding: 72px 32px 32px; display: flex; flex-direction: column; gap: 56px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 48px">
+<div style="flex: 1 1 280px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; align-items: center; gap: 12px"><span style="filter: drop-shadow(0 0 6px rgba(255,255,255,0.95))"><svg width="34" height="34" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" /></svg></span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 34px; line-height: 1">Aura</span></div>
+<p style="margin: 0; max-width: 300px; font-size: 16px; line-height: 1.6">A liquidity agent on Meteora that follows your rules and shows its work.</p>
+</div>
+<nav aria-label="Footer" style="display: flex; flex-wrap: wrap; gap: 64px; font-size: 15px">
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; margin-bottom: 6px">PRODUCT</div><a href="#how" style="color: #04282E; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center">How it works</a><a href="pools.html" style="color: #04282E; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center">Meteora pools</a><a href="#safety" style="color: #04282E; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center">Safety</a><a href="#faq" style="color: #04282E; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center">FAQ</a></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; margin-bottom: 6px">COMMUNITY</div><a href="https://x.com/Auraonchainai" style="color: #04282E; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center">X / Twitter</a><a href="feed.html" style="color: #04282E; text-decoration: none; min-height: 32px; display: inline-flex; align-items: center">Feed</a></div>
+<div style="display: flex; flex-direction: column; gap: 8px"><div style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; margin-bottom: 6px">CONTRACT</div><button type="button" class="aura-btn" onClick=${v.copyContract} style="font-family: 'Space Mono', monospace; font-size: 13px; color: #04282E; background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.75); border-radius: 999px; padding: 0 16px; min-height: 44px; cursor: pointer">${v.copyCaLabel} · AuraL5…pLZG</button></div>
+</nav>
+</div>
+<div style="border-top: 1px solid rgba(4,40,46,0.2); padding-top: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.04em">
+<span>© 2026 AURA</span>
+<span>Not financial advice. Providing liquidity carries risk, including impermanent loss. Meteora is a third-party protocol.</span>
+</div>
+</div>
+</footer>
+
+</div>
+`;
+
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.state = { copied: false, move: 'a', shift: 0, half: 8, size: 600, mx: 0, my: 0, dark: false };
+this._raf = null;
+}
+componentDidMount() {
+let dark = false;
+
+if (dark) this.setState({ dark });
+}
+renderVals() {
+const st = this.state, cap = 888;
+const lo = st.shift - st.half, hi = st.shift + st.half;
+const inRange = lo <= 0 && hi >= 0, overCap = st.size > cap;
+const clampL = Math.max(0, 50 + lo * 2.5), clampR = Math.min(100, 50 + hi * 2.5);
+const sg = (v) => (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + '%';
+const actions = { a: 'Re-center range', b: 'Add liquidity' };
+const mv = {
+shift: st.shift, half: st.half, size: st.size,
+left: clampL.toFixed(1), width: Math.max(0, clampR - clampL).toFixed(1),
+shiftLabel: st.shift === 0 ? 'centered' : sg(st.shift),
+sizeLabel: '$' + st.size.toLocaleString('en-US'),
+rangeLabel: sg(lo) + ' to ' + sg(hi),
+earning: inRange ? 'Yes, price is inside' : 'No, price is outside',
+action: actions[st.move] || 'Custom move',
+ok: !overCap && inRange, notOk: overCap || !inRange,
+fill: overCap ? 'rgba(138,42,22,0.14)' : (inRange ? 'rgba(18,174,188,0.30)' : 'rgba(122,78,0,0.12)'),
+edge: overCap ? '#C0634C' : (inRange ? '#12AEBC' : '#B88A2E'),
+verdict: overCap ? 'Held · bigger than your $888 largest-move cap' : (inRange ? 'Within your Aura · waiting for your sign-off' : 'Flagged · this range wouldn\u2019t earn fees right now'),
+verdictBg: overCap ? '#FBE9E4' : (inRange ? '#FFFFFF' : '#FFF4DB'),
+verdictFg: overCap ? '#8A2A16' : (inRange ? '#04282E' : '#7A4E00'),
+iconBg: overCap ? '#8A2A16' : (inRange ? (this.props.accent ?? '#12AEBC') : '#B88A2E')
+};
+return {
+mv,
+onShift: (e) => this.setState({ shift: parseInt(e.target.value, 10), move: 'c' }),
+onWidth: (e) => this.setState({ half: parseInt(e.target.value, 10), move: 'c' }),
+onSize: (e) => this.setState({ size: parseInt(e.target.value, 10), move: 'c' }),
+themeClass: st.dark ? 'aura-dark' : '',
+isDark: st.dark, isLight: !st.dark,
+themeLabel: st.dark ? 'Switch to light mode' : 'Switch to dark mode',
+themePressed: st.dark ? 'true' : 'false',
+toggleTheme: () => this.setState({ dark: !this.state.dark }),
+accent: this.props.accent ?? '#12AEBC',
+contractLabel: this.state.copied ? 'Copied' : 'Contract',
+copyCaLabel: this.state.copied ? 'Copied!' : 'Copy CA',
+...(() => {
+let still = false;
+try { still = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+const mx = still ? 0 : this.state.mx, my = still ? 0 : this.state.my;
+return { starX: (mx * 30).toFixed(1), starY: (my * 24).toFixed(1), starR: (mx * 8).toFixed(1), haloX: (mx * 14).toFixed(1), haloY: (my * 10).toFixed(1), fieldX: (-mx * 16).toFixed(1), fieldY: (-my * 12).toFixed(1) };
+})(),
+onHeroMove: (e) => {
+const r = e.currentTarget.getBoundingClientRect();
+const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+if (this._raf) return;
+this._raf = requestAnimationFrame(() => { this._raf = null; this.setState({ mx: x, my: y }); });
+},
+onHeroLeave: () => this.setState({ mx: 0, my: 0 }),
+moveTabs: [['a', 'Move A', { shift: 0, half: 8, size: 600 }], ['b', 'Move B', { shift: 3, half: 15, size: 1400 }]].map(([id, label, p]) => {
+const on = this.state.move === id;
+return { label, pressed: on ? 'true' : 'false', bg: on ? '#FFFFFF' : 'transparent', pick: () => this.setState(Object.assign({ move: id }, p)) };
+}),
+copyContract: () => {
+try { navigator.clipboard.writeText('AuraL54hWmsKiEY31Sy6hPDYhegdzA3vCKh2uTwCpLZG'); } catch (e) {}
+this.setState({ copied: true });
+setTimeout(() => this.setState({ copied: false }), 1600);
+}
+};
+}
+}
+
+render(h(Component, {"accent": "#12AEBC"}), document.getElementById('app'));
+</script>
+</body>
+</html>

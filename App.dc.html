@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aura — App</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F4EF}
+a{color:#08707C}a:hover{color:#05505A}
+@keyframes auraShine{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.08) rotate(12deg)}}
+@keyframes auraGlow{0%,100%{filter:drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 0 30px rgba(255,255,255,.55))}50%{filter:drop-shadow(0 0 16px #FFFFFF) drop-shadow(0 0 56px rgba(255,255,255,.85)) drop-shadow(0 0 96px rgba(190,244,250,.6))}}
+@keyframes auraTwinkle{0%,100%{opacity:.25;transform:scale(.7) rotate(0deg)}50%{opacity:1;transform:scale(1.1) rotate(20deg)}}
+@keyframes auraFloat{0%,100%{translate:0 0}25%{translate:8px -12px}50%{translate:-4px -22px}75%{translate:-10px -8px}}
+@keyframes auraSpin{to{rotate:360deg}}
+@keyframes auraPulse{0%,100%{opacity:.55;scale:1}50%{opacity:1;scale:1.06}}
+@keyframes auraPing{0%{box-shadow:0 0 0 0 rgba(255,255,255,.7)}100%{box-shadow:0 0 0 8px rgba(255,255,255,0)}}
+@media (prefers-reduced-motion: reduce){.aura-star,.aura-star svg,.aura-logo,.aura-logo svg,.aura-motion{animation:none !important}}
+.aura-btn{transition:transform .25s ease, box-shadow .25s ease}
+.aura-btn:hover{transform:translateY(-1px)}
+.aura-nav:hover{background:#F1F8F9 !important}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid #12AEBC;outline-offset:2px}
+summary::-webkit-details-marker{display:none}
+</style>
+</helmet>
+<div style="background: #F6F4EF; color: #1C1B22; font-family: 'Manrope', 'Helvetica Neue', sans-serif; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-wrap: wrap">
+
+<aside style="flex: 1 1 248px; max-width: 100%; background: #FFFFFF; border-right: 1px solid #E3EEF0; box-sizing: border-box; padding: 28px 18px; display: flex; flex-direction: column; gap: 30px">
+<div style="display: flex; flex-direction: column; gap: 10px; padding: 0 10px">
+<a href="Main.dc.html" style="display: flex; align-items: center; gap: 12px; text-decoration: none; color: #04282E">
+<span class="aura-logo" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 0 6px rgba(18,174,188,0.6))"><svg width="40" height="40" viewBox="0 0 24 24" aria-hidden="true" style="display: block; animation: auraShine 5s ease-in-out infinite"><defs><linearGradient id="auraAppSideGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="0.45" stop-color="#C9F3F7"></stop><stop offset="1" stop-color="#12AEBC"></stop></linearGradient></defs><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" fill="url(#auraAppSideGrad)" stroke="#12AEBC" stroke-width="0.6"></path><path d="M12 7.5C12.25 10.4 13.6 11.75 16.5 12C13.6 12.25 12.25 13.6 12 16.5C11.75 13.6 10.4 12.25 7.5 12C10.4 11.75 11.75 10.4 12 7.5Z" fill="#FFFFFF"></path></svg></span>
+<span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 34px; line-height: 1">Aura</span>
+</a>
+<div style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: #6B6975">LIQUIDITY AGENT · METEORA</div>
+</div>
+<nav aria-label="App" style="display: flex; flex-direction: column; gap: 4px">
+<button type="button" class="aura-nav" onClick="{{nav.overview.go}}" aria-current="{{nav.overview.current}}" style="font-family: 'Manrope', sans-serif; text-align: left; border: none; cursor: pointer; color: {{nav.overview.color}}; font-weight: {{nav.overview.weight}}; background: {{nav.overview.bg}}; font-size: 15px; padding: 0 14px; min-height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between">Overview<span style="opacity: {{nav.overview.dot}}; color: {{accent}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span></button>
+<button type="button" class="aura-nav" onClick="{{nav.rules.go}}" aria-current="{{nav.rules.current}}" style="font-family: 'Manrope', sans-serif; text-align: left; border: none; cursor: pointer; color: {{nav.rules.color}}; font-weight: {{nav.rules.weight}}; background: {{nav.rules.bg}}; font-size: 15px; padding: 0 14px; min-height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between">My rules<span style="opacity: {{nav.rules.dot}}; color: {{accent}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span></button>
+<a href="Pools.dc.html" class="aura-nav" style="text-decoration: none; color: #3A3842; font-size: 15px; padding: 0 14px; min-height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between">Meteora pools<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
+<button type="button" class="aura-nav" onClick="{{nav.preview.go}}" aria-current="{{nav.preview.current}}" style="font-family: 'Manrope', sans-serif; text-align: left; border: none; cursor: pointer; color: {{nav.preview.color}}; font-weight: {{nav.preview.weight}}; background: {{nav.preview.bg}}; font-size: 15px; padding: 0 14px; min-height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between">Previews<span style="opacity: {{nav.preview.dot}}; color: {{accent}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span></button>
+<button type="button" class="aura-nav" onClick="{{nav.log.go}}" aria-current="{{nav.log.current}}" style="font-family: 'Manrope', sans-serif; text-align: left; border: none; cursor: pointer; color: {{nav.log.color}}; font-weight: {{nav.log.weight}}; background: {{nav.log.bg}}; font-size: 15px; padding: 0 14px; min-height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between">Reason log<span style="opacity: {{nav.log.dot}}; color: {{accent}}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span></button>
+</nav>
+<div style="margin-top: auto; border-top: 1px solid #E3EEF0; padding: 22px 10px 0; display: flex; flex-direction: column; gap: 12px">
+<span style="align-self: flex-start; font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: #08707C; background: #E3F6F8; padding: 6px 12px; border-radius: 999px">● Preview mode</span>
+<p style="margin: 0; font-size: 13px; line-height: 1.55; color: #55535E">Everything here is a what-if. Real deposits are a separate step you choose and sign in your own wallet.</p>
+<a href="Main.dc.html" style="font-size: 14px; font-weight: 700; color: #04282E; text-decoration: none; min-height: 40px; display: inline-flex; align-items: center; gap: 6px">Back to site<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17L17 7M8 7h9v9"></path></svg></a>
+</div>
+</aside>
+
+<main style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column">
+<div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 40px; border-bottom: 1px solid #E3EEF0">
+<div style="font-size: 13px; color: #6B6975">Aura / <span style="color: #04282E">{{screenTitle}}</span></div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 10px">
+<button type="button" class="aura-btn" onClick="{{copyContract}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none; min-height: 44px">{{contractLabel}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"></rect><path d="M5 15V5a2 2 0 0 1 2-2h10"></path></svg></button>
+<span style="font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: #08707C; background: #E3F6F8; padding: 8px 12px; border-radius: 999px">● {{pausedBadge}}</span>
+<button type="button" class="aura-btn" onClick="{{walletAction}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #04282E; background: {{accent}}; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -12px rgba(18,174,188,0.9); min-height: 44px; padding: 0 20px"><sc-if value="{{wallet.connected}}" hint-placeholder-val="{{ false }}"><span style="width: 8px; height: 8px; border-radius: 50%; background: #04282E"></span></sc-if><sc-if value="{{wallet.notConnected}}" hint-placeholder-val="{{ true }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"></rect><path d="M16 12.5h2"></path><path d="M3 9h15"></path></svg></sc-if>{{wallet.label}}</button>
+</div>
+</div>
+<sc-if value="{{wallet.hasMsg}}" hint-placeholder-val="{{ false }}"><div role="status" style="margin: 16px 40px 0; padding: 12px 16px; border-radius: 14px; background: #04282E; color: #FFFFFF; font-size: 14px; display: flex; gap: 12px; align-items: center"><span style="color: #7FDCE6"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span><span>{{wallet.msg}}</span><button type="button" onClick="{{dismissWallet}}" style="margin-left: auto; background: transparent; border: none; color: #FFFFFF; font-size: 13px; font-weight: 700; cursor: pointer; min-height: 32px">Dismiss</button></div></sc-if>
+<div style="width: 100%; max-width: 1200px; margin: 0 auto; box-sizing: border-box; padding: 56px 40px 96px">
+<sc-if value="{{is.overview}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: center">
+<div style="flex: 2 1 460px; min-width: 0"><div style="display: flex; flex-direction: column; gap: 16px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Your space</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(48px, 6vw, 84px); line-height: 1">Steady hands, <em style="font-style: italic; color: #08707C">bright aura.</em></h1>
+<p style="margin: 0; max-width: 640px; font-size: 17px; line-height: 1.65; color: #55535E">Write your limits, try moves before they're real, and keep a record of every call. Nothing on these pages sends a transaction.</p>
+</div></div>
+<div style="flex: 1 1 260px; min-width: 0"><div style="position: relative; overflow: hidden; background: {{accent}}; border-radius: 24px; min-height: 260px; display: flex; align-items: center; justify-content: center">
+<div class="aura-motion" style="position: absolute; width: 186px; height: 186px; border-radius: 50%; border: 1px dashed rgba(255,255,255,0.55); animation: auraSpin 60s linear infinite"></div>
+<div class="aura-motion" style="position: absolute; width: 138px; height: 138px; border-radius: 50%; background: rgba(255,255,255,0.16); box-shadow: 0 0 90px 30px rgba(255,255,255,0.25); animation: auraPulse 5s ease-in-out infinite"></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 14%; left: 14%; color: #FFFFFF; filter: drop-shadow(0 0 6px #FFFFFF); animation: auraFloat 10s ease-in-out infinite"><svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.6s ease-in-out infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 72%; left: 82%; color: #FFFFFF; filter: drop-shadow(0 0 6px #FFFFFF); animation: auraFloat 12s ease-in-out 1s infinite"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 4.4s ease-in-out 1s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></div>
+<div class="aura-star" aria-hidden="true" style="position: absolute; top: 80%; left: 20%; color: #FFFFFF; filter: drop-shadow(0 0 6px #FFFFFF); animation: auraFloat 9s ease-in-out 2s infinite"><svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor" style="display: block; animation: auraTwinkle 3.2s ease-in-out 2s infinite"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></div>
+<div class="aura-logo" aria-hidden="true" style="position: relative; width: 120px; height: 120px; animation: auraGlow 4.5s ease-in-out infinite"><svg width="120" height="120" viewBox="0 0 24 24" style="display: block; animation: auraShine 6s ease-in-out infinite"><defs><linearGradient id="auraOvGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="0.5" stop-color="#E4FAFC"></stop><stop offset="1" stop-color="#A6E9F0"></stop></linearGradient></defs><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" fill="url(#auraOvGrad)" stroke="#FFFFFF" stroke-width="0.25"></path><path d="M12 7.5C12.25 10.4 13.6 11.75 16.5 12C13.6 12.25 12.25 13.6 12 16.5C11.75 13.6 10.4 12.25 7.5 12C10.4 11.75 11.75 10.4 12 7.5Z" fill="#FFFFFF"></path></svg></div>
+</div></div>
+</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 16px">
+<sc-for list="{{stats}}" as="st" hint-placeholder-count="4">
+<div style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 20px; padding: 22px; display: flex; flex-direction: column; gap: 8px"><span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #6B6975">{{st.label}}</span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1">{{st.value}}</span></div>
+</sc-for>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<div style="flex: 3 1 460px; min-width: 0; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Active rule set · {{savedLabel}}</span><span style="color: {{accent}}; filter: drop-shadow(0 0 6px rgba(18,174,188,0.6))"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span></div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(36px, 4vw, 50px); line-height: 1">{{rules.name}}</div>
+<p style="margin: 0; font-size: 15px; color: #3A3842">{{summaryShort}}</p>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{chips}}" as="c" hint-placeholder-count="3"><span style="font-size: 12px; font-weight: 700; background: #FFFFFF; color: #04282E; border: 1px solid #CDEBEF; padding: 7px 12px; border-radius: 999px">{{c}}</span></sc-for></div>
+<div><button type="button" class="aura-btn" onClick="{{nav.rules.go}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #FFFFFF; background: #04282E; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -14px rgba(4,40,46,0.8)">Edit my rules <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
+</div>
+<div style="flex: 2 1 320px; min-width: 0; background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); display: flex; flex-direction: column; gap: 16px">
+<span style="width: 48px; height: 48px; border-radius: 14px; background: #E3F6F8; color: {{accent}}; display: inline-flex; align-items: center; justify-content: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span>
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Try before it's real</span>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 36px; line-height: 1.05">Test a move, risk nothing.</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #55535E">Run any idea against every one of your limits and see exactly which ones it passes.</p>
+<div><button type="button" class="aura-btn" onClick="{{nav.preview.go}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">Open previews <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 32px; align-items: flex-start; border-top: 1px solid #DCEBEE; padding-top: 40px">
+<div style="flex: 2 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Reason log</span>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1">Latest calls</div>
+<sc-if value="{{logEmpty}}" hint-placeholder-val="{{ true }}"><p style="margin: 0; font-size: 15px; color: #55535E">Nothing logged yet. Run a preview and its outcome lands here.</p></sc-if>
+<sc-for list="{{recent}}" as="e" hint-placeholder-count="0">
+<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E3EEF0"><span style="font-family: 'Space Mono', monospace; font-size: 12px; color: #6B6975">{{e.time}}</span><strong style="font-size: 15px">{{e.pair}} · {{e.amountLabel}}</strong><span style="margin-left: auto; font-size: 12px; font-weight: 700; background: {{e.bg}}; color: {{e.fg}}; padding: 6px 12px; border-radius: 999px">{{e.status}}</span></div>
+</sc-for>
+<div><button type="button" class="aura-btn" onClick="{{nav.log.go}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">Open the reason log <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
+</div>
+<blockquote style="flex: 1 1 260px; margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-style: italic; font-size: 30px; line-height: 1.25; color: #08707C">Give it limits, and it gives you clarity back.</blockquote>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{is.rules}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 40px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">01 / Your limits</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(48px, 6vw, 84px); line-height: 1">Set the <em style="font-style: italic; color: #08707C">boundaries.</em></h1>
+<p style="margin: 0; max-width: 640px; font-size: 17px; line-height: 1.65; color: #55535E">One rule set that every preview is measured against. It's stored in this browser only and never written on-chain.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 3 1 480px; min-width: 0; background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); display: flex; flex-direction: column; gap: 30px">
+<div style="display: flex; flex-direction: column; gap: 12px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Quick starts · examples</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px"><sc-for list="{{presets}}" as="p" hint-placeholder-count="3"><button type="button" class="aura-btn" onClick="{{p.pick}}" aria-pressed="{{p.pressed}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: {{p.fg}}; background: {{p.bg}}; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 20px; min-height: 46px; cursor: pointer">{{p.label}}</button></sc-for></div>
+<span style="font-size: 12px; font-weight: 400; color: #6B6975">Starting points only, not investment advice.</span>
+</div>
+<div style="border-top: 1px solid #E3EEF0; padding-top: 26px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 34px">Pairs &amp; pools</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Rule set name<input type="text" value="{{rules.name}}" onInput="{{set.name}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Allowed pairs<input type="text" value="{{rules.pairs}}" onInput="{{set.pairs}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"><span style="font-size: 12px; font-weight: 400; color: #6B6975">Separate with commas, e.g. SOL/USDC, JUP/USDC</span></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Allowed pool addresses<textarea rows="3" value="{{rules.pools}}" onInput="{{set.pools}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%; padding: 12px 14px; resize: vertical"></textarea><span style="font-size: 12px; font-weight: 400; color: #6B6975">Optional. One address per line. Leave empty to allow any pool for your pairs.</span></label>
+</div>
+<div style="border-top: 1px solid #E3EEF0; padding-top: 26px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 34px">Money limits</div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Total budget · USD<input type="number" value="{{rules.budget}}" onInput="{{set.budget}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Largest single move · USD<input type="number" value="{{rules.perMove}}" onInput="{{set.perMove}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Most in one pool · % of budget<input type="number" value="{{rules.exposure}}" onInput="{{set.exposure}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Highest slippage · %<input type="number" step="0.1" value="{{rules.slippage}}" onInput="{{set.slippage}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Smallest pool to touch · USD liquidity<input type="number" value="{{rules.minLiq}}" onInput="{{set.minLiq}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Range width · ± %<input type="number" value="{{rules.range}}" onInput="{{set.range}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+</div>
+</div>
+<div style="border-top: 1px solid #E3EEF0; padding-top: 26px; display: flex; flex-direction: column; gap: 18px">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 34px">Style</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Liquidity shape (Meteora DLMM)<select value="{{rules.shape}}" onChange="{{set.shape}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"><option value="Spot">Spot · even across the range</option><option value="Curve">Curve · heavier near the price</option><option value="Bid-Ask">Bid-Ask · heavier at the edges</option></select></label>
+<label style="display: flex; align-items: center; gap: 12px; font-size: 15px; min-height: 44px; cursor: pointer"><input type="checkbox" checked="{{rules.signoff}}" onChange="{{toggleSignoff}}" style="width: 20px; height: 20px; accent-color: #12AEBC">Ask me before anything is marked approved</label>
+</div>
+<div style="border-top: 1px solid #E3EEF0; padding-top: 22px; display: flex; flex-direction: column; gap: 14px">
+<span style="font-size: 12px; font-weight: 400; color: #6B6975">{{saveNote}}</span>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" class="aura-btn" onClick="{{saveRules}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #04282E; background: {{accent}}; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -12px rgba(18,174,188,0.9)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#04282E" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg>Save rules</button>
+<button type="button" class="aura-btn" onClick="{{resetRules}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">Reset</button>
+<button type="button" class="aura-btn" onClick="{{copyRules}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">{{copyRulesLabel}}</button>
+</div>
+</div>
+</div>
+<div style="flex: 2 1 360px; min-width: 0; position: sticky; top: 24px; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 22px">
+<div style="display: flex; justify-content: space-between; gap: 12px"><span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Aura summary</span><span style="color: {{accent}}; filter: drop-shadow(0 0 6px rgba(18,174,188,0.6))"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg></span></div>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(34px, 3.5vw, 46px); line-height: 1">{{rules.name}}</div>
+<p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-style: italic; font-size: 23px; line-height: 1.4; color: #04282E">{{summaryLong}}</p>
+<div style="background: #FFFFFF; border-radius: 18px; padding: 20px; display: flex; flex-direction: column; gap: 10px"><div role="img" aria-label="Illustrative liquidity shape across the price range" style="display: flex; align-items: flex-end; gap: 4px; height: 96px">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="25"><span style="flex: 1; height: {{b.h}}px; border-radius: 4px 4px 2px 2px; background: {{b.bg}}"></span></sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: #6B6975; border-top: 1px solid #DCEBEE; padding-top: 8px"><span>−20%</span><span style="color: #08707C">● active range ±{{rules.range}}%</span><span>+20%</span></div></div>
+</div>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{is.preview}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 32px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">02 / Try it first</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(48px, 6vw, 84px); line-height: 1">See it <em style="font-style: italic; color: #08707C">before it's real.</em></h1>
+<p style="margin: 0; max-width: 640px; font-size: 17px; line-height: 1.65; color: #55535E">Put any idea through every limit in your rule set. Previews never move funds; a real deposit is always a separate step you sign yourself.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 14px; background: {{accent}}; color: #04282E; border-radius: 18px; padding: 14px 18px">
+<span style="display: inline-flex; align-items: center; gap: 8px; font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.08em"><span class="aura-motion" style="width: 8px; height: 8px; border-radius: 50%; background: #FFFFFF; animation: auraPing 1.8s ease-out infinite"></span>{{pausedBadge}}</span>
+<span style="font-size: 14px">{{bannerText}}</span>
+<button type="button" class="aura-btn" onClick="{{togglePause}}" style="margin-left: auto; font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">{{pauseLabel}}</button>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 3 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); display: flex; flex-direction: column; gap: 18px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Liquidity shape · illustrative</span>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 38px; line-height: 1">Pick a shape.</div>
+<div style="display: inline-flex; flex-wrap: wrap; gap: 6px; background: #F1F8F9; padding: 5px; border-radius: 14px; align-self: flex-start"><sc-for list="{{shapeTabs}}" as="t" hint-placeholder-count="3"><button type="button" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; border: none; border-radius: 10px; padding: 0 18px; min-height: 44px; cursor: pointer; color: #04282E; background: {{t.bg}}">{{t.label}}</button></sc-for></div>
+<div role="img" aria-label="Illustrative liquidity shape across the price range" style="display: flex; align-items: flex-end; gap: 4px; height: 96px">
+<sc-for list="{{bars}}" as="b" hint-placeholder-count="25"><span style="flex: 1; height: {{b.h}}px; border-radius: 4px 4px 2px 2px; background: {{b.bg}}"></span></sc-for>
+</div>
+<div style="display: flex; justify-content: space-between; font-family: 'Space Mono', monospace; font-size: 11px; color: #6B6975; border-top: 1px solid #DCEBEE; padding-top: 8px"><span>−20%</span><span style="color: #08707C">● active range ±{{rules.range}}%</span><span>+20%</span></div>
+<p style="margin: 0; font-size: 14px; line-height: 1.6; color: #55535E">Bars show how liquidity would be spread, not prices or returns. Once the price leaves your active range, a DLMM position stops collecting swap fees until the price comes back or you rebalance.</p>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); display: flex; flex-direction: column; gap: 16px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Quick fill</span>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 38px; line-height: 1">Type it how you'd say it.</div>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Your move in plain words<textarea rows="3" value="{{quickText}}" onInput="{{setQuick}}" placeholder="e.g. $500 into SOL/USDC, slippage under 0.4%" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%; padding: 12px 14px; resize: vertical"></textarea><span style="font-size: 12px; font-weight: 400; color: #6B6975">Read on your device to fill the form below. It can't approve or sign anything.</span></label>
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px"><button type="button" class="aura-btn" onClick="{{runQuick}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #FFFFFF; background: #04282E; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -14px rgba(4,40,46,0.8)"><svg width="14" height="14" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true" style="display: block"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z"></path></svg>Fill the form</button><span style="font-size: 14px; color: #08707C">{{quickMsg}}</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); display: flex; flex-direction: column; gap: 20px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">The move · your inputs</span>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 38px; line-height: 1">Shape the scenario.</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px"><sc-for list="{{scenarios}}" as="sc" hint-placeholder-count="4"><button type="button" class="aura-btn" onClick="{{sc.pick}}" style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700; color: #04282E; background: #F1F8F9; border: 1px solid #CFE2E5; border-radius: 999px; padding: 0 14px; min-height: 40px; cursor: pointer">{{sc.label}}</button></sc-for></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px">
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Pair<input type="text" value="{{prop.pair}}" onInput="{{setP.pair}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Pool address · optional<input type="text" value="{{prop.pool}}" onInput="{{setP.pool}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Move size · USD<input type="number" value="{{prop.amount}}" onInput="{{setP.amount}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Already deployed · USD<input type="number" value="{{prop.allocated}}" onInput="{{setP.allocated}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Already in this pool · USD<input type="number" value="{{prop.inPool}}" onInput="{{setP.inPool}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Pool liquidity · USD<input type="number" value="{{prop.liquidity}}" onInput="{{setP.liquidity}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+<label style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 700; color: #04282E; min-width: 0">Expected slippage · %<input type="number" step="0.1" value="{{prop.slippage}}" onInput="{{setP.slippage}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 500; color: #1C1B22; background: #F7FBFB; border: 1px solid #CFE2E5; border-radius: 12px; padding: 0 14px; min-height: 48px; box-sizing: border-box; width: 100%"></label>
+</div>
+<span style="font-size: 12px; font-weight: 400; color: #6B6975">These are what-if numbers you type in. Approved previews don't add up into a real portfolio.</span>
+<div><button type="button" class="aura-btn" onClick="{{evaluate}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #04282E; background: {{accent}}; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -12px rgba(18,174,188,0.9)">Check this move <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
+</div>
+</div>
+<div style="flex: 2 1 340px; min-width: 0; position: sticky; top: 24px; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 24px; padding: 36px; display: flex; flex-direction: column; gap: 18px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">Check results</span>
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 36px; line-height: 1.05">Every limit, one by one.</div>
+<sc-if value="{{noResult}}" hint-placeholder-val="{{ true }}">
+<p style="margin: 0; font-size: 15px; line-height: 1.6; color: #3A3842">Check a move to see each limit pass or fail, and whether it fits, waits for you, or gets held.</p>
+<div style="display: flex; flex-direction: column"><sc-for list="{{checkNames}}" as="cn" hint-placeholder-count="7"><div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 13px 0; border-bottom: 1px solid #CDEBEF"><span style="font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: #6B6975">{{cn.label}}</span><span style="font-size: 14px; font-weight: 700; color: #04282E; text-align: right">{{cn.value}}</span></div></sc-for></div>
+</sc-if>
+<sc-if value="{{hasResult}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: {{result.bg}}; color: {{result.fg}}; font-weight: 700"><span>{{result.verdict}}</span></div>
+<div style="display: flex; flex-direction: column; background: #FFFFFF; border-radius: 16px; padding: 4px 18px">
+<sc-for list="{{result.checks}}" as="ck" hint-placeholder-count="7">
+<div style="display: flex; gap: 12px; align-items: flex-start; padding: 13px 0; border-bottom: 1px solid #E3EEF0">
+<sc-if value="{{ck.ok}}" hint-placeholder-val="{{ true }}"><span style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: {{accent}}; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5L19 7"></path></svg></span></sc-if><sc-if value="{{ck.bad}}" hint-placeholder-val="{{ false }}"><span style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: #8A2A16; display: inline-flex; align-items: center; justify-content: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span></sc-if>
+<div style="display: flex; flex-direction: column; gap: 2px; min-width: 0"><strong style="font-size: 14px">{{ck.label}}</strong><span style="font-size: 13px; color: #55535E">{{ck.detail}}</span></div>
+</div>
+</sc-for>
+</div>
+<sc-if value="{{result.awaiting}}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-wrap: wrap; gap: 10px"><button type="button" class="aura-btn" onClick="{{approve}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #FFFFFF; background: #04282E; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -14px rgba(4,40,46,0.8)">Approve</button><button type="button" class="aura-btn" onClick="{{decline}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">Decline</button></div></sc-if>
+<button type="button" class="aura-btn" onClick="{{nav.log.go}}" style="align-self: flex-start; font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">See it in the reason log <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+</sc-if>
+</div>
+</div>
+<div style="border-top: 1px solid #DCEBEE; padding-top: 36px; max-width: 760px; display: flex; flex-direction: column; gap: 12px">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 38px; line-height: 1.05">Earning fees isn't the same as profit.</div>
+<p style="margin: 0; font-size: 15px; line-height: 1.7; color: #55535E">Fees only come in while the price trades inside your range, and the tokens you hold shift as the price moves. Whether a position beat simply holding depends on real market history. These previews don't estimate returns or run backtests.</p>
+</div>
+</div>
+</sc-if>
+<sc-if value="{{is.log}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 36px">
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div style="font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #08707C">03 / Every reason, kept</div>
+<h1 style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: clamp(48px, 6vw, 84px); line-height: 1">The reason <em style="font-style: italic; color: #08707C">log.</em></h1>
+<p style="margin: 0; max-width: 640px; font-size: 17px; line-height: 1.65; color: #55535E">A plain-English record of each preview you run, kept in this browser. Not an on-chain receipt or a cryptographic proof.</p>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+<div style="flex: 1 1 300px; min-width: 0; position: sticky; top: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="position: relative; overflow: hidden; background: #E3F6F8; border: 1px solid #CDEBEF; border-radius: 24px; padding: 24px 26px; display: flex; align-items: center; gap: 18px">
+<div aria-hidden="true" style="flex: 0 0 auto; width: 56px; height: 56px; border-radius: 16px; background: {{accent}}; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 24px -14px rgba(18,174,188,0.9)"><svg width="30" height="30" viewBox="0 0 24 24" style="display: block; filter: drop-shadow(0 0 4px rgba(255,255,255,0.8))"><path d="M12 0C12.6 7.2 16.8 11.4 24 12C16.8 12.6 12.6 16.8 12 24C11.4 16.8 7.2 12.6 0 12C7.2 11.4 11.4 7.2 12 0Z" fill="#FFFFFF"></path><path d="M12 7.5C12.25 10.4 13.6 11.75 16.5 12C13.6 12.25 12.25 13.6 12 16.5C11.75 13.6 10.4 12.25 7.5 12C10.4 11.75 11.75 10.4 12 7.5Z" fill="#E4FAFC"></path></svg></div>
+<div style="display: flex; flex-direction: column; gap: 4px; min-width: 0"><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 24px; line-height: 1">Aura's record</span><span style="font-size: 13px; color: #55535E">Kept in this browser, written in plain words.</span></div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); padding: 26px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px">
+<sc-for list="{{logStats}}" as="ls" hint-placeholder-count="4"><div style="display: flex; flex-direction: column; gap: 4px"><span style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6B6975">{{ls.label}}</span><span style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 34px; line-height: 1; color: {{ls.color}}">{{ls.value}}</span></div></sc-for>
+<div style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #6B6975">PASS RATE</span><div style="height: 10px; border-radius: 999px; background: #E3EEF0; overflow: hidden"><div style="height: 100%; width: {{passRate}}%; background: {{accent}}; border-radius: 999px"></div></div><span style="font-size: 13px; color: #55535E">{{passRate}}% of checked moves fit your rules</span></div>
+</div>
+</div>
+<div style="flex: 3 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px">
+<div role="group" aria-label="Filter by outcome" style="display: inline-flex; flex-wrap: wrap; gap: 4px; background: #FFFFFF; border: 1px solid #DCEBEE; padding: 5px; border-radius: 14px"><sc-for list="{{logTabs}}" as="lt" hint-placeholder-count="6"><button type="button" onClick="{{lt.pick}}" aria-pressed="{{lt.pressed}}" style="font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 700; border: none; border-radius: 10px; padding: 0 14px; min-height: 40px; cursor: pointer; color: #04282E; background: {{lt.bg}}">{{lt.label}}</button></sc-for></div>
+<div style="margin-left: auto; display: flex; gap: 8px"><button type="button" class="aura-btn" onClick="{{copyLog}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">{{copyLogLabel}}</button><button type="button" class="aura-btn" onClick="{{clearLog}}" style="font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #04282E; background: #FFFFFF; border: 1px solid #C9DDE0; border-radius: 999px; padding: 0 18px; min-height: 46px; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; text-decoration: none">Clear</button></div>
+</div>
+<sc-if value="{{logEmpty}}" hint-placeholder-val="{{ true }}">
+<div style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); display: flex; flex-direction: column; gap: 14px">
+<div style="font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-size: 38px; line-height: 1.05">Nothing here yet. Every entry starts with a preview.</div>
+<p style="margin: 0; font-size: 15px; color: #55535E">Check a move on the Previews page and its outcome, along with every limit it was measured against, is saved here.</p>
+<div><button type="button" class="aura-btn" onClick="{{nav.preview.go}}" style="font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #04282E; background: {{accent}}; border: none; border-radius: 999px; padding: 0 24px; min-height: 50px; display: inline-flex; align-items: center; gap: 10px; cursor: pointer; box-shadow: 0 10px 24px -12px rgba(18,174,188,0.9)">Open previews <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button></div>
+</div>
+</sc-if>
+<sc-for list="{{filteredLog}}" as="e" hint-placeholder-count="0">
+<details style="background: #FFFFFF; border: 1px solid #DCEBEE; border-radius: 24px; padding: 36px; box-shadow: 0 30px 60px -48px rgba(4,40,46,0.45); padding: 22px 26px">
+<summary style="list-style: none; cursor: pointer; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; min-height: 44px">
+<span style="font-family: 'Space Mono', monospace; font-size: 12px; color: #6B6975">{{e.time}}</span>
+<strong style="font-size: 16px">{{e.pair}}</strong><span style="font-size: 15px; color: #55535E">{{e.amountLabel}}</span>
+<span style="margin-left: auto; font-size: 12px; font-weight: 700; background: {{e.bg}}; color: {{e.fg}}; padding: 6px 12px; border-radius: 999px">{{e.status}}</span>
+</summary>
+<div style="display: flex; flex-direction: column; gap: 10px; padding-top: 16px; margin-top: 14px; border-top: 1px solid #E3EEF0">
+<p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-style: italic; font-size: 20px; color: #04282E">{{e.reason}}</p>
+<sc-for list="{{e.checks}}" as="ck" hint-placeholder-count="0"><div style="display: flex; gap: 10px; align-items: center; font-size: 14px"><sc-if value="{{ck.ok}}" hint-placeholder-val="{{ true }}"><span style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: {{accent}}; display: inline-flex; align-items: center; justify-content: center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#04282E" stroke-width="3" aria-hidden="true"><path d="M5 12l5 5L19 7"></path></svg></span></sc-if><sc-if value="{{ck.bad}}" hint-placeholder-val="{{ false }}"><span style="flex: 0 0 auto; width: 24px; height: 24px; border-radius: 50%; background: #8A2A16; display: inline-flex; align-items: center; justify-content: center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></span></sc-if><span>{{ck.label}}</span><span style="margin-left: auto; color: #6B6975; font-size: 13px">{{ck.detail}}</span></div></sc-for>
+</div>
+</details>
+</sc-for>
+</div>
+</div>
+</div>
+</sc-if>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#12AEBC","options":["#12AEBC","#0ABAB5","#4FC3D6","#0B8FA0"]},"startScreen":{"editor":"enum","options":["overview","rules","preview","log"],"default":"overview"},"$preview":{"width":1440,"height":2200}}'>
+class Component extends DCLogic {
+constructor(props) {
+super(props);
+this.presets = {
+steady: { label: 'Slow & steady', name: 'Steady SOL', pairs: 'SOL/USDC', pools: '', budget: '8888', perMove: '888', exposure: '40', slippage: '0.5', minLiq: '250000', range: '8', shape: 'Spot', signoff: true },
+even: { label: 'Even keel', name: 'Even keel', pairs: 'SOL/USDC, JUP/USDC', pools: '', budget: '5000', perMove: '1000', exposure: '50', slippage: '0.8', minLiq: '150000', range: '12', shape: 'Curve', signoff: true },
+explorer: { label: 'Active explorer', name: 'Active explorer', pairs: 'SOL/USDC, JUP/USDC, SOL/USDT', pools: '', budget: '2500', perMove: '500', exposure: '60', slippage: '1', minLiq: '50000', range: '18', shape: 'Bid-Ask', signoff: true }
+};
+this.state = {
+screen: props.startScreen || 'overview',
+rules: Object.assign({}, this.presets.steady), preset: 'steady', saved: false, savedAt: '',
+prop: { pair: 'SOL/USDC', pool: '', amount: '150', allocated: '0', inPool: '0', liquidity: '250000', slippage: '0.2' },
+result: null, log: [], logFilter: 'all', paused: false,
+quickText: '', quickMsg: '',
+wallet: { status: 'idle', address: '', msg: '' },
+copied: false, copiedRules: false, copiedLog: false
+};
+}
+componentDidMount() {
+try {
+const r = localStorage.getItem('aura-rules');
+const l = localStorage.getItem('aura-log');
+const next = {};
+if (r) { const p = JSON.parse(r); next.rules = Object.assign({}, this.presets.steady, p.rules); next.saved = true; next.savedAt = p.savedAt || ''; next.preset = ''; }
+if (l) next.log = JSON.parse(l) || [];
+if (Object.keys(next).length) this.setState(next);
+} catch (e) {}
+}
+persistLog(log) { try { localStorage.setItem('aura-log', JSON.stringify(log.slice(0, 200))); } catch (e) {} }
+num(v) { const n = parseFloat(String(v).replace(/[^0-9.\-]/g, '')); return isNaN(n) ? 0 : n; }
+money(v) { return '$' + Math.round(this.num(v)).toLocaleString('en-US'); }
+short(a) { return a.length > 10 ? a.slice(0, 4) + '…' + a.slice(-4) : a; }
+normPair(p) { return String(p).toUpperCase().replace(/\s+/g, '').replace('-', '/'); }
+provider() {
+try { return (window.phantom && window.phantom.solana) || window.solflare || window.solana || null; } catch (e) { return null; }
+}
+async connectWallet() {
+const p = this.provider();
+if (!p) { this.setState({ wallet: { status: 'idle', address: '', msg: 'No Solana wallet was found in this browser. Install Phantom or Solflare, and once Aura is on its own domain this button connects it.' } }); return; }
+this.setState({ wallet: { status: 'connecting', address: '', msg: '' } });
+try {
+const res = await p.connect();
+const key = (res && res.publicKey) || p.publicKey;
+const address = key ? key.toString() : '';
+this.setState({ wallet: { status: 'connected', address, msg: 'Wallet connected. Aura only reads your address; nothing is signed.' } });
+} catch (e) {
+this.setState({ wallet: { status: 'idle', address: '', msg: 'Connection was cancelled.' } });
+}
+}
+async disconnectWallet() {
+const p = this.provider();
+try { if (p && p.disconnect) await p.disconnect(); } catch (e) {}
+this.setState({ wallet: { status: 'idle', address: '', msg: 'Wallet disconnected.' } });
+}
+bars(shape, range) {
+const n = 25, half = Math.max(1, Math.min(12, Math.round(this.num(range) / 1.6)));
+const accent = this.props.accent ?? '#12AEBC';
+const height = (d) => {
+if (shape === 'Curve') return 26 + 62 * Math.exp(-Math.pow(d / (half * 0.65 + 0.4), 2));
+if (shape === 'Bid-Ask') return 26 + 62 * (Math.min(d, half) / half);
+return 72;
+};
+const out = [];
+for (let i = 0; i < n; i++) {
+const d = Math.abs(i - 12);
+const active = d <= half;
+out.push({ h: Math.round(height(active ? d : (shape === 'Curve' ? d : half))), bg: active ? accent : '#D3EDF0' });
+}
+return out;
+}
+runChecks(r, p) {
+const pairs = r.pairs.split(',').map((x) => this.normPair(x)).filter(Boolean);
+const pools = r.pools.split(/\s+/).map((x) => x.trim()).filter(Boolean);
+const amt = this.num(p.amount), alloc = this.num(p.allocated), inPool = this.num(p.inPool), liq = this.num(p.liquidity), slip = this.num(p.slippage);
+const budget = this.num(r.budget), per = this.num(r.perMove), exp = this.num(r.exposure), maxSlip = this.num(r.slippage), minLiq = this.num(r.minLiq);
+const share = budget > 0 ? ((inPool + amt) / budget) * 100 : 100;
+const pairOk = pairs.includes(this.normPair(p.pair));
+const poolOk = pools.length === 0 || pools.includes(p.pool.trim());
+return [
+{ label: 'Pair is on your list', detail: pairOk ? this.normPair(p.pair) : this.normPair(p.pair) + ' isn\u2019t allowed', ok: pairOk },
+{ label: 'Pool is allowed', detail: pools.length === 0 ? 'Any pool for your pairs' : (poolOk ? this.short(p.pool) : 'Not in your pool list'), ok: poolOk },
+{ label: 'Fits your largest-move cap', detail: this.money(amt) + ' of ' + this.money(per), ok: amt <= per },
+{ label: 'Stays inside total budget', detail: this.money(alloc + amt) + ' of ' + this.money(budget), ok: alloc + amt <= budget },
+{ label: 'Pool share under your limit', detail: share.toFixed(1) + '% of ' + exp + '%', ok: share <= exp },
+{ label: 'Pool is deep enough', detail: this.money(liq) + ' vs ' + this.money(minLiq) + ' min', ok: liq >= minLiq },
+{ label: 'Slippage under your limit', detail: slip + '% vs ' + maxSlip + '% max', ok: slip <= maxSlip }
+].map((c) => Object.assign(c, { bad: !c.ok }));
+}
+status(s) {
+const m = { 'Held': ['#FBE9E4', '#8A2A16'], 'Approved': ['#E3F6F8', '#08707C'], 'Declined': ['#F1EFEA', '#55535E'], 'Waiting on you': ['#FFF4DB', '#7A4E00'], 'Fits': ['#E3F6F8', '#08707C'] };
+const c = m[s] || ['#F1EFEA', '#55535E'];
+return { bg: c[0], fg: c[1] };
+}
+evaluate() {
+if (this.state.paused) { this.setState({ quickMsg: '' , result: { verdict: 'Previews are paused. Resume to check moves.', bg: '#F1EFEA', fg: '#55535E', checks: [], awaiting: false } }); return; }
+const r = this.state.rules, p = this.state.prop;
+const checks = this.runChecks(r, p);
+const fails = checks.filter((c) => !c.ok);
+let status, verdict, reason;
+if (fails.length) { status = 'Held'; verdict = 'Held \u00b7 ' + fails.length + ' limit' + (fails.length > 1 ? 's' : '') + ' crossed'; reason = 'Held because: ' + fails.map((f) => f.label.toLowerCase()).join('; ') + ' \u2014 failed.'; }
+else if (r.signoff) { status = 'Waiting on you'; verdict = 'Within your Aura \u00b7 waiting for your sign-off'; reason = 'Every limit passed. Waiting for your approval, as your rules ask.'; }
+else { status = 'Fits'; verdict = 'Within your Aura \u00b7 fits every rule'; reason = 'Every limit passed and sign-off is off, so it was marked as fitting.'; }
+const now = new Date();
+const entry = { id: String(now.getTime()), time: now.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }), pair: this.normPair(p.pair), amount: this.num(p.amount), status, reason, checks: checks.map((c) => ({ label: c.label, detail: c.detail, ok: c.ok })) };
+const log = [entry].concat(this.state.log);
+this.persistLog(log);
+const col = this.status(status);
+this.setState({ log, result: { id: entry.id, verdict, bg: col.bg, fg: col.fg, checks, awaiting: status === 'Waiting on you' } });
+}
+decide(s) {
+const id = this.state.result && this.state.result.id;
+const log = this.state.log.map((e) => e.id === id ? Object.assign({}, e, { status: s, reason: e.reason + (s === 'Approved' ? ' You approved it.' : ' You declined it.') }) : e);
+this.persistLog(log);
+const col = this.status(s);
+this.setState({ log, result: Object.assign({}, this.state.result, { awaiting: false, verdict: s === 'Approved' ? 'Approved by you \u00b7 logged' : 'Declined by you \u00b7 logged', bg: col.bg, fg: col.fg }) });
+}
+quickFill() {
+const t = this.state.quickText;
+const amt = t.match(/\$\s?([\d,]+(?:\.\d+)?)/) || t.match(/([\d,]+(?:\.\d+)?)\s?(?:usd|usdc|dollars)/i);
+const pair = t.match(/\b([A-Za-z]{2,10})\s*[\/\-]\s*([A-Za-z]{2,10})\b/);
+const slip = t.match(/([\d.]+)\s*%/);
+const prop = Object.assign({}, this.state.prop);
+const got = [];
+if (amt) { prop.amount = amt[1].replace(/,/g, ''); got.push('size ' + this.money(prop.amount)); }
+if (pair) { prop.pair = (pair[1] + '/' + pair[2]).toUpperCase(); got.push(prop.pair); }
+if (slip) { prop.slippage = slip[1]; got.push(slip[1] + '% slippage'); }
+this.setState({ prop, quickMsg: got.length ? 'Filled: ' + got.join(', ') + '.' : 'Couldn\u2019t spot an amount, pair or slippage. Try \u201c$300 into SOL/USDC, 0.5%\u201d.' });
+}
+renderVals() {
+const accent = this.props.accent ?? '#12AEBC';
+const s = this.state, r = s.rules;
+const go = (k) => () => this.setState({ screen: k });
+const nav = {};
+['overview', 'rules', 'preview', 'log'].forEach((k) => {
+const on = s.screen === k;
+nav[k] = { go: go(k), current: on ? 'page' : 'false', color: on ? '#04282E' : '#3A3842', weight: on ? '700' : '500', bg: on ? '#E3F6F8' : 'transparent', dot: on ? '1' : '0' };
+});
+const titles = { overview: 'Overview', rules: 'My rules', preview: 'Previews', log: 'Reason log' };
+const set = {};
+['name', 'pairs', 'pools', 'budget', 'perMove', 'exposure', 'slippage', 'minLiq', 'range', 'shape'].forEach((k) => {
+set[k] = (e) => this.setState({ rules: Object.assign({}, this.state.rules, { [k]: e.target.value }), preset: '' });
+});
+const setP = {};
+['pair', 'pool', 'amount', 'allocated', 'inPool', 'liquidity', 'slippage'].forEach((k) => {
+setP[k] = (e) => this.setState({ prop: Object.assign({}, this.state.prop, { [k]: e.target.value }) });
+});
+const pairsTxt = r.pairs.split(',').map((x) => this.normPair(x)).filter(Boolean).join(', ') || 'no pairs yet';
+const summaryShort = 'Allow ' + pairsTxt + ' \u00b7 up to ' + this.money(r.budget) + ' total \u00b7 ' + this.money(r.perMove) + ' per move.';
+const summaryLong = '\u201cAura may provide ' + r.shape + ' liquidity on ' + pairsTxt + ', using no more than ' + this.money(r.budget) + ' in total. No single move above ' + this.money(r.perMove) + ', no pool thinner than ' + this.money(r.minLiq) + ', and slippage kept under ' + r.slippage + '%.' + (r.signoff ? ' Nothing is approved without me.' : '') + '\u201d';
+const presets = Object.keys(this.presets).map((k) => {
+const on = s.preset === k;
+return { label: this.presets[k].label, pressed: on ? 'true' : 'false', bg: on ? accent : '#FFFFFF', fg: '#04282E', pick: () => this.setState({ rules: Object.assign({}, this.presets[k]), preset: k }) };
+});
+const shapeTabs = ['Spot', 'Curve', 'Bid-Ask'].map((sh) => ({ label: sh, pressed: r.shape === sh ? 'true' : 'false', bg: r.shape === sh ? accent : 'transparent', pick: () => this.setState({ rules: Object.assign({}, this.state.rules, { shape: sh }) }) }));
+const firstPair = r.pairs.split(',')[0] ? this.normPair(r.pairs.split(',')[0]) : 'SOL/USDC';
+const per = this.num(r.perMove), minLiq = this.num(r.minLiq), maxSlip = this.num(r.slippage);
+const base = { pair: firstPair, pool: '', amount: String(Math.max(1, Math.round(per * 0.6))), allocated: '0', inPool: '0', liquidity: String(Math.max(minLiq * 2, 250000)), slippage: String(Math.max(0.1, +(maxSlip * 0.4).toFixed(2))) };
+const scenarios = [
+{ label: 'Fits my rules', p: base },
+{ label: 'Too big', p: Object.assign({}, base, { amount: String(Math.round(per * 1.6)) }) },
+{ label: 'Pool too shallow', p: Object.assign({}, base, { liquidity: String(Math.round(minLiq / 4)) }) },
+{ label: 'Slippage too high', p: Object.assign({}, base, { slippage: String(+(maxSlip * 3).toFixed(2)) }) }
+].map((x) => ({ label: x.label, pick: () => this.setState({ prop: Object.assign({}, x.p), result: null }) }));
+const decorate = (e) => { const c = this.status(e.status); return Object.assign({}, e, { bg: c.bg, fg: c.fg, amountLabel: this.money(e.amount), checks: (e.checks || []).map((k) => Object.assign({}, k, { bad: !k.ok })) }); };
+const filters = [['all', 'All'], ['Held', 'Held'], ['Approved', 'Approved'], ['Waiting on you', 'Waiting'], ['Fits', 'Fits'], ['Declined', 'Declined']];
+const logTabs = filters.map(([k, label]) => ({ label, pressed: s.logFilter === k ? 'true' : 'false', bg: s.logFilter === k ? accent : 'transparent', pick: () => this.setState({ logFilter: k }) }));
+const filteredLog = s.log.filter((e) => s.logFilter === 'all' || e.status === s.logFilter).map(decorate);
+const count = (st) => s.log.filter((e) => e.status === st).length;
+const passed = s.log.filter((e) => e.status !== 'Held').length;
+const passRate = s.log.length ? Math.round((passed / s.log.length) * 100) : 0;
+const w = s.wallet;
+const walletLabel = w.status === 'connected' ? this.short(w.address) : (w.status === 'connecting' ? 'Connecting\u2026' : 'Connect wallet');
+return {
+accent, nav, set, setP,
+is: { overview: s.screen === 'overview', rules: s.screen === 'rules', preview: s.screen === 'preview', log: s.screen === 'log' },
+screenTitle: titles[s.screen],
+rules: r, prop: s.prop,
+savedLabel: s.saved ? 'Saved' : 'Not saved yet',
+saveNote: s.saved ? 'Saved in this browser' + (s.savedAt ? ' on ' + s.savedAt : '') + '. A preview rule set, not on-chain enforcement.' : 'Saved in this browser only. A preview rule set, not on-chain enforcement.',
+summaryShort, summaryLong,
+chips: [r.shape, 'Slippage \u2264 ' + r.slippage + '%', r.signoff ? 'Ask me first' : 'Auto when it fits'],
+stats: [
+{ label: 'BUDGET', value: this.money(r.budget) },
+{ label: 'PREVIEWS RUN', value: String(s.log.length) },
+{ label: 'APPROVED', value: String(count('Approved')) },
+{ label: 'HELD', value: String(count('Held')) }
+],
+logStats: [
+{ label: 'ALL', value: String(s.log.length), color: '#04282E' },
+{ label: 'APPROVED', value: String(count('Approved')), color: '#08707C' },
+{ label: 'HELD', value: String(count('Held')), color: '#8A2A16' },
+{ label: 'WAITING', value: String(count('Waiting on you')), color: '#7A4E00' }
+],
+passRate,
+recent: s.log.slice(0, 3).map(decorate),
+logEmpty: s.log.length === 0,
+filteredLog, logTabs,
+presets, shapeTabs, scenarios,
+bars: this.bars(r.shape, r.range),
+toggleSignoff: () => this.setState({ rules: Object.assign({}, this.state.rules, { signoff: !this.state.rules.signoff }) }),
+saveRules: () => { const at = new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }); try { localStorage.setItem('aura-rules', JSON.stringify({ rules: this.state.rules, savedAt: at })); } catch (e) {} this.setState({ saved: true, savedAt: at }); },
+resetRules: () => { try { localStorage.removeItem('aura-rules'); } catch (e) {} this.setState({ rules: Object.assign({}, this.presets.steady), preset: 'steady', saved: false, savedAt: '' }); },
+copyRulesLabel: s.copiedRules ? 'Copied' : 'Copy as JSON',
+copyRules: () => { try { navigator.clipboard.writeText(JSON.stringify(this.state.rules, null, 2)); } catch (e) {} this.setState({ copiedRules: true }); setTimeout(() => this.setState({ copiedRules: false }), 1600); },
+copyLogLabel: s.copiedLog ? 'Copied' : 'Copy as JSON',
+copyLog: () => { try { navigator.clipboard.writeText(JSON.stringify(this.state.log, null, 2)); } catch (e) {} this.setState({ copiedLog: true }); setTimeout(() => this.setState({ copiedLog: false }), 1600); },
+clearLog: () => { this.persistLog([]); this.setState({ log: [], result: null }); },
+pausedBadge: s.paused ? 'Previews paused' : 'Preview mode',
+pauseLabel: s.paused ? 'Resume previews' : 'Pause previews',
+togglePause: () => this.setState({ paused: !this.state.paused }),
+bannerText: s.saved ? 'Checking against your saved rule set \u201c' + r.name + '\u201d.' : 'Using an unsaved example rule set. Save your own on My rules.',
+quickText: s.quickText, quickMsg: s.quickMsg,
+setQuick: (e) => this.setState({ quickText: e.target.value }),
+runQuick: () => this.quickFill(),
+evaluate: () => this.evaluate(),
+approve: () => this.decide('Approved'),
+decline: () => this.decide('Declined'),
+noResult: !s.result, hasResult: !!s.result,
+result: s.result || { verdict: '', bg: '#FFFFFF', fg: '#04282E', checks: [], awaiting: false },
+checkNames: [
+{ label: 'PAIR', value: pairsTxt },
+{ label: 'POOL', value: r.pools.trim() ? r.pools.trim().split(/\s+/).length + ' allowed' : 'Any pool for your pairs' },
+{ label: 'LARGEST MOVE', value: 'Up to ' + this.money(r.perMove) },
+{ label: 'TOTAL BUDGET', value: this.money(r.budget) },
+{ label: 'POOL SHARE', value: 'Max ' + r.exposure + '% of budget' },
+{ label: 'POOL DEPTH', value: 'At least ' + this.money(r.minLiq) },
+{ label: 'SLIPPAGE', value: 'Under ' + r.slippage + '%' }
+],
+wallet: { label: walletLabel, connected: w.status === 'connected', notConnected: w.status !== 'connected', msg: w.msg, hasMsg: !!w.msg },
+walletAction: () => (this.state.wallet.status === 'connected' ? this.disconnectWallet() : this.connectWallet()),
+dismissWallet: () => this.setState({ wallet: Object.assign({}, this.state.wallet, { msg: '' }) }),
+contractLabel: s.copied ? 'Copied' : 'Contract',
+copyContract: () => { try { navigator.clipboard.writeText('AuraL54hWmsKiEY31Sy6hPDYhegdzA3vCKh2uTwCpLZG'); } catch (e) {} this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 1600); }
+};
+}
+}
+
+</script>
+</body>
+</html>
