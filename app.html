@@ -546,7 +546,7 @@ wallet: { label: walletLabel, connected: w.status === 'connected', notConnected:
 walletAction: () => (this.state.wallet.status === 'connected' ? this.disconnectWallet() : this.connectWallet()),
 dismissWallet: () => this.setState({ wallet: Object.assign({}, this.state.wallet, { msg: '' }) }),
 contractLabel: s.copied ? 'Copied' : 'Contract',
-copyContract: () => { try { navigator.clipboard.writeText('AuraL54hWmsKiEY31Sy6hPDYhegdzA3vCKh2uTwCpLZG'); } catch (e) {} this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 1600); }
+copyContract: () => { try { navigator.clipboard.writeText('8aTMMd62RhVtKcyy1b44d84TYh6523MRRFv3jV5GAurA'); } catch (e) {} this.setState({ copied: true }); setTimeout(() => this.setState({ copied: false }), 1600); }
 };
 }
 }
